@@ -17,6 +17,9 @@ ul {
         	.jqtree-toggler {
                 cursor: pointer;
 
+                -animation-duration: 1.5s; 
+                -animation-name: rotate; 
+
 	            &.jqtree-closed {
                     &:before {
                         @include transform(rotate(270deg)); 

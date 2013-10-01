@@ -23,64 +23,8 @@
 
 <div class="js-tree jqtree bonsai"></div>
 
+<script src="assets/js/treeInit.js"></script>
 
-<script>
-    $(function() {
-        var data = [
-            {
-                label: 'node1',
-                elmClass: 'icon-folder icon-doctype icon-folder-open',
-                children: [
-                    { label: 'child1', elmClass:'icon-filetype icon-doctype icon-columns' },
-                    { label: 'child2', elmClass:'icon-filetype icon-doctype icon-columns' }
-                ]
-            },
-            {
-                label: 'node2',
-                elmClass: 'icon-folder icon-doctype icon-folder-open',
-                children: [
-                    { label: 'child3' }
-                ]
-            },
-            {
-                label: 'node3',
-                elmClass: 'icon-folder icon-doctype icon-folder-open',
-                children: [
-                ]
-            }
-        ];
-
-        var $tree = $('.js-tree');
-
-        $tree.tree({
-            data: data,
-            autoOpen: true,
-            dragAndDrop: true,
-            saveState: true,
-            closedIcon: '',
-            openedIcon: '',
-            onCreateLi: function(node, $li) {
-                
-
-                if ($li.hasClass('jqtree-folder')) {
-                    //console.log($li.hasClass('jqtree-folder'));
-                    $li.addClass('folder');
-                }
-
-                $li.find('.jqtree-title').addClass(node.elmClass);
-                $li.find('.jqtree-toggler').addClass('icon-caret-down');
-                
-
-
-                //$li.hasClass('jqtree-folder').addClass('folder');
-                /*$li.find('.jqtree-element').append(
-                    '<a href="#node-'+ node.id +'" class="edit" data-node-id="'+
-                    node.id +'">edit</a>'
-                );*/
-            }
-        });
-    });
-</script>
 
 </body>
 </html>
