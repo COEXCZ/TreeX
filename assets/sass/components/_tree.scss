@@ -15,11 +15,12 @@ ul {
         	position: relative;
 
         	.jqtree-toggler {
-	            /*font-family: FontAwesome;
-	            font-size: 18px;*/
+                cursor: pointer;
 
 	            &.jqtree-closed {
-	            	//@include transform(rotate(270deg)); 
+                    &:before {
+                        @include transform(rotate(270deg)); 
+                    }
 	            }
 	        }
 
@@ -67,8 +68,11 @@ ul {
                     margin-left: 48px;
                 }
             }
-        }
-        
+
+            .jqtree-title {
+                cursor: pointer;
+            }
+        }        
 
         .jqtree-moving {
             & > .jqtree-element {

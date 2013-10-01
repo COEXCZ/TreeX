@@ -1480,6 +1480,21 @@ a .icon-flip-vertical:before {
 /* pst: silent classes are abstract, reusable and don't get printed unless they are used */
 /* global directory contains all of your non-printing styles. This allows for a single folder that can bootsrap any new stylesheet. You should be able to reskin an entire website by updating the variables and Extend directories */
 /* folder component that toggles open and rotates tree icon */
+/*%folder {
+	> .section {
+		opacity:0; 
+		@include transition(opacity,240ms,ease-in);
+	}
+	&.open {
+		> a > i[class*="caret"] {
+			@include transform(rotate(90deg)); 
+		}
+		> .section {
+			@include transition(opacity,240ms,ease-out);
+			opacity:1;
+		} 
+	}
+}*/
 /* components are standalone, resuable, and have no knowledge of their parent container. A naked component partial is merely a collection of the DOM elements in that component. If done properly, each component should be a list of extends, mixins, and vertical rhythm */
 /*.icon-chevron-sign-right  {
 	position:absolute;
@@ -1509,8 +1524,13 @@ ul.jqtree-tree {
   ul.jqtree-tree li {
     position: relative; }
     ul.jqtree-tree li .jqtree-toggler {
-      /*font-family: FontAwesome;
-      font-size: 18px;*/ }
+      cursor: pointer; }
+      ul.jqtree-tree li .jqtree-toggler.jqtree-closed:before {
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+        transform: rotate(270deg); }
     ul.jqtree-tree li.jqtree-closed > ul.jqtree_common {
       display: none; }
     ul.jqtree-tree li.jqtree-ghost {
@@ -1539,6 +1559,8 @@ ul.jqtree-tree {
           width: 100%; }
       ul.jqtree-tree li.jqtree-ghost.jqtree-inside {
         margin-left: 48px; }
+    ul.jqtree-tree li .jqtree-title {
+      cursor: pointer; }
   ul.jqtree-tree .jqtree-moving > .jqtree-element .jqtree-title {
     outline: dashed 1px #0000ff; }
   ul.jqtree-tree [class^="icon-"]:before,
