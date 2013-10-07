@@ -28,7 +28,7 @@
     children: []
   ]
   ###
-  
+  ###
   json = (->
     json = null
     $.ajax
@@ -41,10 +41,11 @@
 
     json
   )()
-
+  ###
   tree = $(".js-tree")
   tree.tree
-    data: json
+    #NOTE: data are placed via 'data-url' param to enable dynamic nodes children loading
+    #data: json 
     autoOpen: false
     dragAndDrop: true
     saveState: true
@@ -78,9 +79,18 @@
     console.log "position", event.move_info.position
     console.log "previous_parent", event.move_info.previous_parent
 
+  # node opened
+  tree.bind "tree.open", (event) ->
+    
+    node = event.node
+    $(node).addClass 'icon-folder-open'
+    # TODO: finish on open/close folder icon replacing
+
   # left click
   tree.bind "tree.click", (event) ->
     
     # The clicked node is 'event.node'
     node = event.node
-    alert node.name + " id: " + node.id + " clicked"
+    alert node.name + " id: " + node.id + " clicked"#
+
+  

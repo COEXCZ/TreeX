@@ -724,10 +724,10 @@ a .icon-flip-vertical:before {
 .icon-shopping-cart:before {
   content: "\f07a"; }
 
-.icon-folder-close:before {
+.icon-folder-close:before, .icon-folder:before {
   content: "\f07b"; }
 
-.icon-folder-open:before, .icon-folder:before {
+.icon-folder-open:before {
   content: "\f07c"; }
 
 .icon-resize-vertical:before {

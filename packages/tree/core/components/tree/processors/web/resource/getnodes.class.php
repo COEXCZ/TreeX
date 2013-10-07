@@ -119,12 +119,16 @@ class TreeResourceGetNodesProcessor extends modProcessor {
         $this->defaultRootId = $this->modx->getOption('tree_root_id',null,0);
 
         $id = $this->getProperty('id');
+        $node = $this->getProperty('node');
+
         if (empty($id) || $id == 'root') {
             $this->startNode = $this->defaultRootId;
         } else {
             $parts= explode('_',$id);
             $this->contextKey= isset($parts[0]) ? $parts[0] : false;
             $this->startNode = !empty($parts[1]) ? intval($parts[1]) : 0;
+            // if nodeId given via param
+            $this->startNode = !empty($node) ? intval($node) : $this->startNode;
         }
         if ($this->getProperty('debug')) {
             echo '<p style="width: 800px; font-family: \'Lucida Console\'; font-size: 11px">';
@@ -432,14 +436,15 @@ class TreeResourceGetNodesProcessor extends modProcessor {
             $itemArray['expanded'] = true;
         } else {
             $itemArray['hasChildren'] = true;
-            
-            // temporary fix (get childs only if resource id  <> 29 (imported))
-            if (intval($itemArray['id'])<>29) {
-                // dip into child only if required
-                if ($this->children == true) {
-                    $itemArray['children'] = $this->getChild($itemArray['id']);
-                }
+            $itemArray['children'] = array();
+
+            // dip into child only if required
+            if ($this->children == true) {
+                $itemArray['children'] = $this->getChild($itemArray['id']);
+            } else {
+                $itemArray['load_on_demand'] = true;
             }
+
         }
 
         // variables were unset during tunning, because caused tree JS engine fails

@@ -31,23 +31,24 @@
     ]
     */
 
-    var json, tree;
-    json = (function() {
-      json = null;
-      $.ajax({
-        async: false,
-        global: false,
-        url: dataUrl,
-        dataType: "json",
-        success: function(data) {
-          return json = data;
-        }
-      });
-      return json;
-    })();
+    /*
+    json = (->
+      json = null
+      $.ajax
+        async: false
+        global: false
+        url: dataUrl
+        dataType: "json"
+        success: (data) ->
+          json = data
+    
+      json
+    )()
+    */
+
+    var tree;
     tree = $(".js-tree");
     tree.tree({
-      data: json,
       autoOpen: false,
       dragAndDrop: true,
       saveState: true,
@@ -68,6 +69,11 @@
       console.log("target_node", event.move_info.target_node);
       console.log("position", event.move_info.position);
       return console.log("previous_parent", event.move_info.previous_parent);
+    });
+    tree.bind("tree.open", function(event) {
+      var node;
+      node = event.node;
+      return $(node).addClass('icon-folder-open');
     });
     return tree.bind("tree.click", function(event) {
       var node;
