@@ -727,7 +727,7 @@ a .icon-flip-vertical:before {
 .icon-folder-close:before {
   content: "\f07b"; }
 
-.icon-folder-open:before {
+.icon-folder-open:before, .icon-folder:before {
   content: "\f07c"; }
 
 .icon-resize-vertical:before {
@@ -885,7 +885,7 @@ a .icon-flip-vertical:before {
 .icon-group:before {
   content: "\f0c0"; }
 
-.icon-link:before {
+.icon-link:before, .icon-weblink:before {
   content: "\f0c1"; }
 
 .icon-cloud:before {
@@ -1334,7 +1334,7 @@ a .icon-flip-vertical:before {
 .icon-btc:before {
   content: "\f15a"; }
 
-.icon-file:before {
+.icon-file:before, .icon-resource:before {
   content: "\f15b"; }
 
 .icon-file-text:before {
@@ -1586,4 +1586,5 @@ span.jqtree-dragging {
   cursor: pointer;
   padding: 2px 8px; }
 
+/* font-awesome classes rewrites */
 /* base directory contains all of the visual styles that are not layout or are specific to a component */

@@ -119,3 +119,18 @@ span.jqtree-dragging {
     cursor: pointer;
     padding: 2px 8px;
 }
+
+
+/* font-awesome classes rewrites */
+
+.icon-resource {
+    @extend .icon-file; 
+}
+
+.icon-folder {
+    @extend .icon-folder-open; 
+}
+
+.icon-weblink {
+    @extend .icon-link; 
+}
