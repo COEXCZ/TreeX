@@ -13,11 +13,6 @@ $webActions = array(
     'web/resource/getnodes'
 );
 
-// if node requested, then append node id to request
-/*if (!empty($_REQUEST['node']) && intval($_REQUEST['node']) > 0) {
-    $_REQUEST['id'] = $_REQUEST['id'].'_'.$_REQUEST['node'];
-}*/
-
 if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {
     $version = $modx->getVersionData();
     if (version_compare($version['full_version'],'2.1.1-pl') >= 0) {
