@@ -7,7 +7,7 @@
     <script src="[[++tree.assets_url:isnot=``:then=`[[++tree.assets_url]]`:else=`[[++assets_url]]components/tree/`]]js/vendor/jquery/jquery-2.0.3.min.js"></script>
 <!--<![endif]-->
 <script src="[[++tree.assets_url:isnot=``:then=`[[++tree.assets_url]]`:else=`[[++assets_url]]components/tree/`]]js/vendor/modernizr.dev.js"></script>
-<script src="[[++tree.assets_url:isnot=``:then=`[[++tree.assets_url]]`:else=`[[++assets_url]]components/tree/`]]js/vendor/jqtree/tree.jquery.js"></script>
+<script src="[[++tree.assets_url:isnot=``:then=`[[++tree.assets_url]]`:else=`[[++assets_url]]components/tree/`]]js/vendor/jqtree/jquery.treex.js"></script>
 
 <div class="js-tree jqtree bonsai" data-url="[[++tree.assets_url:isnot=``:then=`[[++tree.assets_url]]`:else=`[[++assets_url]]components/tree/`]]connector.php?action=web/resource/getnodes&id=web"></div>
 
