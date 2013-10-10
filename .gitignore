@@ -7,3 +7,6 @@ node_modules
 assets/sass/bourbon
 npm-debug.log
 .sass-cache
+
+config.core.php
+_build/build.config.php

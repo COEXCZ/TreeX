@@ -1,12 +1,19 @@
 <?php
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))).'/config.core.php';
-require_once MODX_CORE_PATH.'config/'.MODX_CONFIG_KEY.'.inc.php';
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/config.core.php';
+require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
 
-require_once MODX_CONNECTORS_PATH.'index.php';
+require_once MODX_CONNECTORS_PATH . 'index.php';
 
-$corePath = $modx->getOption('tree.core_path',null,$modx->getOption('core_path').'components/tree/');
-
+$corePath = $modx->getOption('treex.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/treex/');
+$treeX = $modx->getService(
+    'treex',
+    'TreeX',
+    $corePath . 'model/treex/',
+    array(
+        'core_path' => $corePath
+    )
+);
 
 // define allowed actions
 $webActions = array(
@@ -28,13 +35,10 @@ if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {
     $_REQUEST['HTTP_MODAUTH'] = $_SERVER['HTTP_MODAUTH'];
 }
 
-
-
 /* handle request */
-$path = $modx->getOption('processorsPath',$modx->tree->config,$corePath.'processors/');
-
-$result = $modx->request->handleRequest(array(
-    'processors_path' => $path,
-    'location' => '',
-));
-
+$modx->request->handleRequest(
+    array(
+        'processors_path' => $treeX->getOption('processorsPath', null, $corePath . 'processors/'),
+        'location' => '',
+    )
+);

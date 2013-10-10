@@ -1,0 +1,15 @@
+{
+    "name": "TreeX"
+    ,"lowCaseName": "treex"
+    ,"description": "TreeX for MODX"
+    ,"author": "COEX"
+    ,"version": "1.0.0"
+    ,"package":{
+        "elements": {
+            "chunks": [{
+                "name": "resourcesTree"
+                ,"file": "resourcesTree.tpl"
+            }]
+        }
+    }
+}
