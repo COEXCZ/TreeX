@@ -337,11 +337,10 @@ class TreeXGetNodesProcessor extends modProcessor {
             'allowDrop' => true,
         );
         if (!$hasChildren) {
-            $itemArray['hasChildren'] = false;
             $itemArray['children'] = array();
             $itemArray['expanded'] = true;
         } else {
-            $itemArray['hasChildren'] = true;
+            $itemArray['load_on_demand'] = true;
         }
         $itemArray = $resource->prepareTreeNode($itemArray);
         return $itemArray;
