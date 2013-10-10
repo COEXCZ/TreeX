@@ -255,6 +255,7 @@ class TreeXGetNodesProcessor extends modProcessor {
             'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : '',
             'type' => 'modContext',
             'page' => !$this->getProperty('noHref') ? '?a='.$this->actions['context/update'].'&key='.$context->get('key') : '',
+            'load_on_demand' => true,
         );
     }
 
