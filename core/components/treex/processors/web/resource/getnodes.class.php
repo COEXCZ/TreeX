@@ -5,7 +5,7 @@
  * @package modx
  * @subpackage processors.layout.tree.resource
  */
-class TreeResourceGetNodesProcessor extends modProcessor {
+class TreeXGetNodesProcessor extends modProcessor {
     /** @var int $defaultRootId */
     public $defaultRootId;
     public $itemClass;
@@ -14,7 +14,6 @@ class TreeResourceGetNodesProcessor extends modProcessor {
     public $items = array();
     public $actions = array();
     public $permissions = array();
-    public $children = false;
 
     public function checkPermissions() {
         return $this->modx->hasPermission('resource_tree');
@@ -25,33 +24,26 @@ class TreeResourceGetNodesProcessor extends modProcessor {
 
     public function initialize() {
         $this->setDefaultProperties(array(
-            'sortBy' => $this->modx->getOption('tree_default_sort',null,'menuindex'),
-            'sortDir' => 'ASC',
-            'stringLiterals' => false,
-            'noMenu' => false,
-            'debug' => false,
-            'nodeField' => $this->modx->getOption('resource_tree_node_name',null,'pagetitle'),
-            'qtipField' => $this->modx->getOption('resource_tree_node_tooltip',null,''),
-            'currentResource' => false,
-            'currentAction' => false,
-        ));
+                                        'sortBy' => $this->modx->getOption('tree_default_sort',null,'menuindex'),
+                                        'sortDir' => 'ASC',
+                                        'stringLiterals' => false,
+                                        'noMenu' => false,
+                                        'debug' => false,
+                                        'nodeField' => $this->modx->getOption('resource_tree_node_name',null,'pagetitle'),
+                                        'qtipField' => $this->modx->getOption('resource_tree_node_tooltip',null,''),
+                                        'currentResource' => false,
+                                        'currentAction' => false,
+                                    ));
         return true;
     }
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @return mixed
      */
     public function process() {
         $this->getRootNode();
-        
-        // if there is param chldren == true, then return whole tree not only one node
-        $getChildren = $this->getProperty('children');
-        if (!empty($getChildren) && intval($getChildren) == 1) {
-            $this->children = true;
-        }
-
         $this->prepare();
 
         if (empty($this->contextKey) || $this->contextKey == 'root') {
@@ -61,13 +53,8 @@ class TreeResourceGetNodesProcessor extends modProcessor {
         }
 
         $collection = $this->modx->getCollection($this->itemClass, $c);
-        $search = $this->getProperty('search','');
-        if (!empty($search) && empty($node) && (empty($this->contextKey) || $this->contextKey == 'root')) {
-            $this->search($search);
-        }
 
-        $items = $this->iterate($collection);
-        $this->items = $items;
+        $this->iterate($collection);
 
         if ($this->getProperty('stringLiterals',false)) {
             return $this->modx->toJSON($this->items);
@@ -112,23 +99,19 @@ class TreeResourceGetNodesProcessor extends modProcessor {
 
     /**
      * Determine the context and root and start nodes for the tree
-     * 
+     *
      * @return void
      */
     public function getRootNode() {
         $this->defaultRootId = $this->modx->getOption('tree_root_id',null,0);
 
         $id = $this->getProperty('id');
-        $node = $this->getProperty('node');
-
         if (empty($id) || $id == 'root') {
             $this->startNode = $this->defaultRootId;
         } else {
             $parts= explode('_',$id);
             $this->contextKey= isset($parts[0]) ? $parts[0] : false;
             $this->startNode = !empty($parts[1]) ? intval($parts[1]) : 0;
-            // if nodeId given via param
-            $this->startNode = !empty($node) ? intval($node) : $this->startNode;
         }
         if ($this->getProperty('debug')) {
             echo '<p style="width: 800px; font-family: \'Lucida Console\'; font-size: 11px">';
@@ -144,8 +127,8 @@ class TreeResourceGetNodesProcessor extends modProcessor {
         $c= $this->modx->newQuery($this->itemClass, array('key:!=' => 'mgr'));
         if (!empty($this->defaultRootId)) {
             $c->where(array(
-                "(SELECT COUNT(*) FROM {$this->modx->getTableName('modResource')} WHERE context_key = modContext.{$this->modx->escape('key')} AND id IN ({$this->defaultRootId})) > 0",
-            ));
+                          "(SELECT COUNT(*) FROM {$this->modx->getTableName('modResource')} WHERE context_key = modContext.{$this->modx->escape('key')} AND id IN ({$this->defaultRootId})) > 0",
+                      ));
         }
         if ($this->modx->getOption('context_tree_sort',null,false)) {
             $ctxSortBy = $this->modx->getOption('context_tree_sortby',null,'key');
@@ -162,40 +145,40 @@ class TreeResourceGetNodesProcessor extends modProcessor {
     public function getResourceQuery() {
         $resourceColumns = array(
             'id'
-            ,'pagetitle'
-            ,'longtitle'
-            ,'alias'
-            ,'description'
-            ,'parent'
-            ,'published'
-            ,'deleted'
-            ,'isfolder'
-            ,'menuindex'
-            ,'menutitle'
-            ,'hidemenu'
-            ,'class_key'
-            ,'context_key'
+        ,'pagetitle'
+        ,'longtitle'
+        ,'alias'
+        ,'description'
+        ,'parent'
+        ,'published'
+        ,'deleted'
+        ,'isfolder'
+        ,'menuindex'
+        ,'menutitle'
+        ,'hidemenu'
+        ,'class_key'
+        ,'context_key'
         );
         $this->itemClass= 'modResource';
         $c= $this->modx->newQuery($this->itemClass);
         $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
-            'childrenCount' => 'COUNT(Child.id)',
-        ));
+                       'childrenCount' => 'COUNT(Child.id)',
+                   ));
         $c->where(array(
-            'context_key' => $this->contextKey,
-            'show_in_tree' => true,
-        ));
+                      'context_key' => $this->contextKey,
+                      'show_in_tree' => true,
+                  ));
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
             $c->where(array(
-                'id:IN' => explode(',', $this->defaultRootId),
-                'parent:NOT IN' => explode(',', $this->defaultRootId),
-            ));
+                          'id:IN' => explode(',', $this->defaultRootId),
+                          'parent:NOT IN' => explode(',', $this->defaultRootId),
+                      ));
         } else {
             $c->where(array(
-                'parent' => $this->startNode,
-            ));
+                          'parent' => $this->startNode,
+                      ));
         }
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
         $c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
@@ -203,88 +186,13 @@ class TreeResourceGetNodesProcessor extends modProcessor {
     }
 
     /**
-     * Add search results to tree nodes
-     * 
-     * @param string $query
-     * @return void
-     */
-    public function search($query) {
-        /* first check to see if search results */
-        $searchNode = array(
-            'text' => $this->modx->lexicon('search_results'),
-            'id' => 'search_results',
-            'leaf' => false,
-            'cls' => 'search-results-node',
-            'type' => 'none',
-            'expanded' => true,
-            'children' => array(),
-        );
-
-        $s = $query;
-
-        $c = $this->modx->newQuery('modResource');
-        $c->select($this->modx->getSelectColumns('modResource','modResource','',array(
-            'id'
-            ,'pagetitle'
-            ,'longtitle'
-            ,'alias'
-            ,'description'
-            ,'parent'
-            ,'published'
-            ,'deleted'
-            ,'isfolder'
-            ,'menuindex'
-            ,'menutitle'
-            ,'hidemenu'
-            ,'class_key'
-            ,'context_key'
-        )));
-        $c->where(array(
-            'pagetitle:LIKE' => '%'.$s.'%',
-            'OR:longtitle:LIKE' => '%'.$s.'%',
-            'OR:alias:LIKE' => '%'.$s.'%',
-            'OR:menutitle:LIKE' => '%'.$s.'%',
-            'OR:description:LIKE' => '%'.$s.'%',
-            'OR:content:LIKE' => '%'.$s.'%',
-        ));
-        $c->where(array(
-            'show_in_tree' => true,
-        ));
-        $c->limit($this->modx->getOption('resource_tree_num_search_results',null,15));
-        $searchResults = $this->modx->getCollection('modResource',$c);
-
-        /** @var modResource $item */
-        foreach ($searchResults as $item) {
-            $itemArray = $this->prepareResourceNode($item);
-            if (!empty($itemArray)) {
-                $itemArray['leaf'] = true;
-                $searchNode['children'][] = $itemArray;
-            }
-        }
-
-        $searchNode['children'][] = array(
-            'text' => $this->modx->lexicon('more_search_results'),
-            'id' => 'more-search-results-node',
-            'leaf' => true,
-            'expanded' => false,
-            'children' => array(),
-            'allowDrop' => false,
-            'cls' => 'search-results-node search-more-node',
-            'page' => '?a='.$this->actions['search'].'&q='.urlencode($s),
-        );
-
-        $this->items[] = $searchNode;
-    }
-
-    /**
      * Iterate across the collection of items from the query
-     * 
+     *
      * @param array $collection
      * @return void
      */
     public function iterate(array $collection = array()) {
         /* now process actual tree nodes */
-        $items = array();
         $item = reset($collection);
         /** @var modContext|modResource $item */
         while ($item) {
@@ -297,22 +205,21 @@ class TreeResourceGetNodesProcessor extends modProcessor {
             if ($this->itemClass == 'modContext') {
                 $itemArray = $this->prepareContextNode($item);
                 if (!empty($itemArray)) {
-                    $items[] = $itemArray;
+                    $this->items[] = $itemArray;
                 }
             } else {
                 $itemArray = $this->prepareResourceNode($item);
                 if (!empty($itemArray)) {
-                    $items[] = $itemArray;
+                    $this->items[] = $itemArray;
                 }
             }
             $item = next($collection);
         }
-        return $items;
     }
 
     /**
      * Prepare a Context for being shown in the tree
-     * 
+     *
      * @param modContext $context
      * @return array
      */
@@ -353,7 +260,7 @@ class TreeResourceGetNodesProcessor extends modProcessor {
 
     /**
      * Prepare a Resource for being shown in the tree
-     * 
+     *
      * @param modResource $resource
      * @return array
      */
@@ -416,10 +323,9 @@ class TreeResourceGetNodesProcessor extends modProcessor {
 
         $idNote = $this->modx->hasPermission('tree_show_resource_ids') ? ' <span dir="ltr">('.$resource->id.')</span>' : '';
         $itemArray = array(
-            //'label' => strip_tags($resource->$nodeField).$idNote,
-            'label' => strip_tags($resource->$nodeField),
-            'ctx_id' => $resource->context_key . '_'.$resource->id,
-            'id' => $resource->id,
+            'text' => strip_tags($resource->$nodeField).$idNote,
+            'id' => $resource->context_key . '_'.$resource->id,
+            'pk' => $resource->id,
             'cls' => implode(' ',$class),
             'type' => 'modResource',
             'classKey' => $resource->class_key,
@@ -436,61 +342,9 @@ class TreeResourceGetNodesProcessor extends modProcessor {
             $itemArray['expanded'] = true;
         } else {
             $itemArray['hasChildren'] = true;
-            $itemArray['children'] = array();
-
-            // dip into child only if required
-            if ($this->children == true) {
-                $itemArray['children'] = $this->getChild($itemArray['id']);
-            } else {
-                $itemArray['load_on_demand'] = true;
-            }
-
         }
-
-        // variables were unset during tunning, because caused tree JS engine fails
-        unset($itemArray['hasChildren']);
-
         $itemArray = $resource->prepareTreeNode($itemArray);
         return $itemArray;
     }
-
-
-
-
-
-    public function getChild($parent) {
-        $this->startNode = $parent;
-        $this->prepare();
-
-        if (empty($this->contextKey) || $this->contextKey == 'root') {
-            $c = $this->getContextQuery();
-        } else {
-            $c = $this->getResourceQuery();
-        }
-
-        $collection = $this->modx->getCollection($this->itemClass, $c);
-        $search = $this->getProperty('search','');
-        if (!empty($search) && empty($node) && (empty($this->contextKey) || $this->contextKey == 'root')) {
-            $this->search($search);
-        }
-
-        $items = $this->iterate($collection);
-        return $items;
-        /*
-        if ($this->getProperty('stringLiterals',false)) {
-            return $this->modx->toJSON($this->items);
-        } else {
-            return $this->toJSON($this->items);
-        }
-        */
-    }
-
-
-
-
-
-
-
-
 }
-return 'TreeResourceGetNodesProcessor';
+return 'TreeXGetNodesProcessor';
