@@ -105,7 +105,7 @@ class TreeXGetNodesProcessor extends modProcessor {
     public function getRootNode() {
         $this->defaultRootId = $this->modx->getOption('tree_root_id',null,0);
 
-        $id = $this->getProperty('id');
+        $id = $this->getProperty('node');
         if (empty($id) || $id == 'root') {
             $this->startNode = $this->defaultRootId;
         } else {
