@@ -76,7 +76,7 @@
       }
       data_url = tree.dataUrl || tree.data('url');
       data = {
-        action: 'web/resource/move',
+        action: 'web/resource/sort',
         node: nodeId,
         position: position,
         target: targetId,
