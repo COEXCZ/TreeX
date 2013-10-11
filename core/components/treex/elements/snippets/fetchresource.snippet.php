@@ -35,6 +35,8 @@ $processorResponse = $modx->runProcessor('resource/get', array('id' => $id));
 $response = $processorResponse->getResponse();
 
 $response['object']['resource_id'] = $response['object']['id'];
+$response['object']['published'] = ($response['object']['published'] == true) ? 1 : 0;
+
 unset($response['object']['id']);
 
 $hook->setValues($response['object']);

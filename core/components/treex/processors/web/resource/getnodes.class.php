@@ -335,7 +335,7 @@ class TreeXGetNodesProcessor extends modProcessor {
         $updateUrl = $this->modx->makeUrl($updateId, $resource->context_key, array('resource' => $resource->id));
 
         $itemArray = array(
-            'text' => strip_tags($resource->$nodeField) . ' - ' . $resource->id,
+            'text' => strip_tags($resource->$nodeField),
             'id' => $resource->context_key . '_'.$resource->id,
             'pk' => $resource->id,
             'cls' => implode(' ',$class),
