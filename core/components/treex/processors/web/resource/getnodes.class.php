@@ -2,8 +2,8 @@
 /**
  * Get nodes for the resource tree
  *
- * @package modx
- * @subpackage processors.layout.tree.resource
+ * @package treex
+ * @subpackage processors.web.resource
  */
 class TreeXGetNodesProcessor extends modProcessor {
     /** @var int $defaultRootId */
