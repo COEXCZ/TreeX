@@ -1873,11 +1873,15 @@ limitations under the License.
     };
 
     SaveStateHandler.prototype.setState = function(state) {
-      var open_nodes, selected_node, selected_node_id,
+      var node, open_nodes, selected_node, selected_node_id, _i, _len,
         _this = this;
       if (state) {
         open_nodes = state.open_nodes;
         selected_node_id = state.selected_node;
+        for (_i = 0, _len = open_nodes.length; _i < _len; _i++) {
+          node = open_nodes[_i];
+          console.log(node);
+        }
         this.tree_widget.tree.iterate(function(node) {
           node.is_open = node.id && node.hasChildren() && (indexOf(open_nodes, node.id) >= 0);
           return true;

@@ -7,6 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
+<script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/vendor/jquery.cookie/jquery.cookie.js"></script>
 <script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/vendor/jqtreex/jquery.treex.js"></script>
 
 <div class="js-tree jqtree bonsai" data-url="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]connector.php"></div>
