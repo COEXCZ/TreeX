@@ -24,6 +24,7 @@ class TreeX {
                 'corePath' => $corePath,
                 'modelPath' => $corePath . 'model/',
                 'processorsPath' => $corePath . 'processors/',
+                'processors_path' => $corePath . 'processors/',
             ),
             $options
         );

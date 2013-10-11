@@ -3,13 +3,24 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.0.0"
+    ,"version": "1.0.3"
     ,"package":{
         "elements": {
             "chunks": [{
                 "name": "resourcesTree"
-                ,"file": "resourcesTree.tpl"
+            },{
+                "name": "resourceUpdateForm"
+            }]
+            ,"snippets": [{
+                "name": "fetchResource"
+            },{
+                "name": "updateResource"
             }]
         }
+        ,"systemSettings": [{
+            "key": "update_form_id"
+            ,"area": "default"
+            ,"value": ""
+        }]
     }
 }
