@@ -110,10 +110,6 @@
   # node opened
   tree.bind "tree.open", (event) ->
     
-    for(var i in localStorage)
-    {
-      console.log(localStorage[i]);
-    }
     node = event.node
     $(node).addClass 'icon-folder-open'
     # TODO: finish on open/close folder icon replacing
