@@ -15,9 +15,9 @@
 $values = $hook->getValues();
 
 $values['id'] = $values['resource_id'];
+$values['published'] = isset($values['published']) ? 1 : 0;
 
 unset($values['resource_id']);
-
 
 $processorResponse = $modx->runProcessor('resource/update', $values);
 $response = $processorResponse->getResponse();
