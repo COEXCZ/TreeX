@@ -161,12 +161,13 @@ class TreeXGetNodesProcessor extends modProcessor {
         );
         $this->itemClass= 'modResource';
         $c= $this->modx->newQuery($this->itemClass);
-        $c->leftJoin('modResource', 'Child', array('modResource.id = Child.parent'));
+        $c->leftJoin('modResource', 'Child', array('Child.class_key' => 'modDocument', 'modResource.id = Child.parent'));
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
                        'childrenCount' => 'COUNT(Child.id)',
                    ));
         $c->where(array(
+                      'class_key' => 'modDocument',
                       'context_key' => $this->contextKey,
                       'show_in_tree' => true,
                   ));
