@@ -330,8 +330,12 @@ class TreeXGetNodesProcessor extends modProcessor {
             }
         }
 
+        $updateId = $this->modx->treex->getOption('update_form_id', null, 1);
+
+        $updateUrl = $this->modx->makeUrl($updateId, $resource->context_key, array('resource' => $resource->id));
+
         $itemArray = array(
-            'text' => strip_tags($resource->$nodeField),
+            'text' => strip_tags($resource->$nodeField) . ' - ' . $resource->id,
             'id' => $resource->context_key . '_'.$resource->id,
             'pk' => $resource->id,
             'cls' => implode(' ',$class),
@@ -340,8 +344,7 @@ class TreeXGetNodesProcessor extends modProcessor {
             'ctx' => $resource->context_key,
             'hide_children_in_tree' => $resource->hide_children_in_tree,
             'qtip' => $qtip,
-            'preview_url' => $this->modx->makeUrl($resource->get('id'), $resource->get('context_key'), '', 'full'),
-            'page' => empty($noHref) ? '?a='.(!empty($this->permissions['edit_document']) ? $this->actions['resource/update'] : $this->actions['resource/data']).'&id='.$resource->id : '',
+            'page' => $updateUrl,
             'allowDrop' => true,
         );
         if (!$hasChildren) {
