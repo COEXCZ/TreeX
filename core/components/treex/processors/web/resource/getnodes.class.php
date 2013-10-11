@@ -2,8 +2,8 @@
 /**
  * Get nodes for the resource tree
  *
- * @package modx
- * @subpackage processors.layout.tree.resource
+ * @package treex
+ * @subpackage processors.web.resource
  */
 class TreeXGetNodesProcessor extends modProcessor {
     /** @var int $defaultRootId */
@@ -235,8 +235,10 @@ class TreeXGetNodesProcessor extends modProcessor {
         $class[] = !empty($this->permissions['new_context_static_resource']) ? $this->permissions['new_context_static_resource'] : '';
         $class[] = !empty($this->permissions['resource_quick_create']) ? $this->permissions['resource_quick_create'] : '';
 
+        $children = $this->modx->getCount('modResource', array('context_key' => $context->key));
+
         $context->prepare();
-        return array(
+        $contextData = array(
             'text' => $context->get('key'),
             'id' => $context->get('key') . '_0',
             'pk' => $context->get('key'),
@@ -255,8 +257,14 @@ class TreeXGetNodesProcessor extends modProcessor {
             'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : '',
             'type' => 'modContext',
             'page' => !$this->getProperty('noHref') ? '?a='.$this->actions['context/update'].'&key='.$context->get('key') : '',
-            'load_on_demand' => true,
         );
+
+        if ($children > 0) {
+            $contextData['load_on_demand'] = true;
+        }
+
+        return $contextData;
+
     }
 
     /**
@@ -322,9 +330,8 @@ class TreeXGetNodesProcessor extends modProcessor {
             }
         }
 
-        $idNote = $this->modx->hasPermission('tree_show_resource_ids') ? ' <span dir="ltr">('.$resource->id.')</span>' : '';
         $itemArray = array(
-            'text' => strip_tags($resource->$nodeField).$idNote,
+            'text' => strip_tags($resource->$nodeField),
             'id' => $resource->context_key . '_'.$resource->id,
             'pk' => $resource->id,
             'cls' => implode(' ',$class),
