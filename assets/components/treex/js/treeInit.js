@@ -54,6 +54,7 @@
       saveState: true,
       closedIcon: "",
       openedIcon: "",
+      autoOpen: true,
       onCreateLi: function(node, $li) {
         $li.find(".jqtree-title").addClass(node.cls);
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
@@ -100,7 +101,7 @@
     return tree.bind("tree.click", function(event) {
       var node;
       node = event.node;
-      return alert(node.name + " id: " + node.id + " clicked");
+      return window.location.href = node.page.replace('&amp;', '&');
     });
   });
 

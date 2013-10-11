@@ -51,6 +51,7 @@
     saveState: true
     closedIcon: ""
     openedIcon: ""
+    autoOpen: true
 
     onCreateLi: (node, $li) ->
       
@@ -71,8 +72,6 @@
       # The clicked node is 'event.node'
       node = event.node
       alert node.name + " id: " + node.id + " cls: " + node.cls
-
-
 
 
     # move element event
@@ -121,6 +120,6 @@
     
     # The clicked node is 'event.node'
     node = event.node
-    alert node.name + " id: " + node.id + " clicked"#
+    window.location.href = node.page.replace('&amp;','&'); 
 
   
