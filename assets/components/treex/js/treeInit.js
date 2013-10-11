@@ -58,18 +58,40 @@
         $li.find(".jqtree-title").addClass(node.cls);
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
       }
-    });
-    tree.bind("tree.contextmenu", function(event) {
+    }, tree.bind("tree.contextmenu", function(event) {
       var node;
       node = event.node;
       return alert(node.name + " id: " + node.id + " cls: " + node.cls);
-    });
-    tree.bind("tree.move", function(event) {
-      console.log("moved_node", event.move_info.moved_node);
-      console.log("target_node", event.move_info.target_node);
-      console.log("position", event.move_info.position);
-      return console.log("previous_parent", event.move_info.previous_parent);
-    });
+    }), tree.bind("tree.move", function(event) {
+      var data, data_url, nodeId, parentPrevId, position, targetId,
+        _this = this;
+      nodeId = event.move_info.moved_node.id;
+      targetId = event.move_info.target_node.id;
+      parentPrevId = event.move_info.previous_parent.id;
+      position = event.move_info.position;
+      if (position === 'inside') {
+        position = 0;
+      } else if (position === 'after') {
+        position = 1;
+      }
+      data_url = tree.dataUrl || tree.data('url');
+      data = {
+        action: 'web/resource/move',
+        node: nodeId,
+        position: position,
+        target: targetId,
+        prev: parentPrevId
+      };
+      return $.ajax({
+        url: data_url,
+        data: data,
+        type: 'GET',
+        cache: false,
+        dataType: 'json',
+        success: function(response) {},
+        error: function(response) {}
+      });
+    }));
     tree.bind("tree.open", function(event) {
       var node;
       node = event.node;

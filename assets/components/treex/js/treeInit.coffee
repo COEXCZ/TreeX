@@ -51,6 +51,7 @@
     saveState: true
     closedIcon: ""
     openedIcon: ""
+
     onCreateLi: (node, $li) ->
       
       #console.log($li.hasClass('jqtree-folder'));
@@ -59,25 +60,53 @@
       $li.find(".jqtree-toggler").addClass "icon-caret-down"
 
   
-  #$li.hasClass('jqtree-folder').addClass('folder');
-  #$li.find('.jqtree-element').append(
-  #                '<a href="#node-'+ node.id +'" class="edit" data-node-id="'+
-  #                node.id +'">edit</a>'
-  #            );
-  
-  # right click context menu
-  tree.bind "tree.contextmenu", (event) ->
+    #$li.hasClass('jqtree-folder').addClass('folder');
+    #$li.find('.jqtree-element').append(
+    #                '<a href="#node-'+ node.id +'" class="edit" data-node-id="'+
+    #                node.id +'">edit</a>'
+    #            );
     
-    # The clicked node is 'event.node'
-    node = event.node
-    alert node.name + " id: " + node.id + " cls: " + node.cls
+    # right click context menu
+    tree.bind "tree.contextmenu", (event) ->
+      # The clicked node is 'event.node'
+      node = event.node
+      alert node.name + " id: " + node.id + " cls: " + node.cls
 
-  # move element event
-  tree.bind "tree.move", (event) ->
-    console.log "moved_node", event.move_info.moved_node
-    console.log "target_node", event.move_info.target_node
-    console.log "position", event.move_info.position
-    console.log "previous_parent", event.move_info.previous_parent
+
+
+
+    # move element event
+    tree.bind "tree.move", (event) ->
+      # prepare params
+      nodeId = event.move_info.moved_node.id
+      targetId = event.move_info.target_node.id
+      parentPrevId = event.move_info.previous_parent.id
+      position = event.move_info.position
+
+      # translate position param
+      if position is 'inside'
+        position = 0
+      else if position is 'after'
+        position = 1
+
+      #prepare url data
+      data_url = tree.dataUrl or tree.data('url')
+      data = action: 'web/resource/move', node: nodeId, position: position, target:targetId, prev: parentPrevId
+      
+      # do request
+      $.ajax(
+          url: data_url
+          data: data
+          type: 'GET'
+          cache: false
+          dataType: 'json'         
+          
+          success: (response) =>
+              
+          error: (response) =>          
+      )
+      
+
 
   # node opened
   tree.bind "tree.open", (event) ->
@@ -85,6 +114,7 @@
     node = event.node
     $(node).addClass 'icon-folder-open'
     # TODO: finish on open/close folder icon replacing
+
 
   # left click
   tree.bind "tree.click", (event) ->
