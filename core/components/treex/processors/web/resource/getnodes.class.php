@@ -257,7 +257,6 @@ class TreeXGetNodesProcessor extends modProcessor {
             'cls' => implode(' ',$class),
             'qtip' => $context->get('description') != '' ? strip_tags($context->get('description')) : '',
             'type' => 'modContext',
-            'page' => !$this->getProperty('noHref') ? '?a='.$this->actions['context/update'].'&key='.$context->get('key') : '',
         );
 
         if ($children > 0) {
