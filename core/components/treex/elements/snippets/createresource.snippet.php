@@ -14,14 +14,14 @@
  
 $values = $hook->getValues();
 
-$values['id'] = $values['resource_id'];
 $values['published'] = isset($values['published']) ? 1 : 0;
+$values['parent'] = $_GET['parent'];
 
-unset($values['resource_id']);
-
-$processorResponse = $modx->runProcessor('resource/update', $values);
+$processorResponse = $modx->runProcessor('resource/create', $values);
 $response = $processorResponse->getResponse();
 
-$modx->sendRedirect($modx->makeUrl($modx->resource->id, '', array('resource' => $response['object']['id'])));
+$updateId = $modx->getOption('treex.update_form_id', null, 1);
+
+$modx->sendRedirect($modx->makeUrl($updateId, '', array('resource' => $response['object']['id'])));
 
 return true;

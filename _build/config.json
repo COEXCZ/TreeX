@@ -3,22 +3,30 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.0.4"
+    ,"version": "1.0.5"
     ,"package":{
         "elements": {
             "chunks": [{
                 "name": "resourcesTree"
             },{
                 "name": "resourceUpdateForm"
+            },{
+                "name": "resourceCreateForm"
             }]
             ,"snippets": [{
                 "name": "fetchResource"
             },{
                 "name": "updateResource"
+            },{
+                "name": "createResource"
             }]
         }
         ,"systemSettings": [{
             "key": "update_form_id"
+            ,"area": "default"
+            ,"value": ""
+        },{
+            "key": "create_form_id"
             ,"area": "default"
             ,"value": ""
         }]
