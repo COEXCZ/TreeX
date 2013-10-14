@@ -17,7 +17,8 @@ $treeX = $modx->getService(
 
 // define allowed actions
 $webActions = array(
-    'web/resource/getnodes'
+    'web/resource/getnodes',
+    'web/resource/sort',
 );
 
 if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {
