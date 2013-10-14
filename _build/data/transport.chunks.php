@@ -23,4 +23,12 @@ $chunks[2]->fromArray(array(
     'snippet' => getSnippetContent($sources['chunks'].'resourceupdateform.chunk.tpl'),
 ),'',true,true);
 
+$chunks[3]= $modx->newObject('modChunk');
+$chunks[3]->fromArray(array(
+    'id' => 3,
+    'name' => 'resourceCreateForm',
+    'description' => '',
+    'snippet' => getSnippetContent($sources['chunks'].'resourcecreateform.chunk.tpl'),
+),'',true,true);
+
 return $chunks;
