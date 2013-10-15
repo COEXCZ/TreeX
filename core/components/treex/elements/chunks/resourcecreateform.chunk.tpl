@@ -1,3 +1,5 @@
+[[!initRedactor]]
+
 [[!FormIt?
     &hooks=`createResource`
     &validate=`pagetitle:required`

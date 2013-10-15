@@ -19,6 +19,8 @@ $treeX = $modx->getService(
 $webActions = array(
     'web/resource/getnodes',
     'web/resource/sort',
+    'web/resource/imageupload',
+    'web/resource/fileupload',
 );
 
 if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {
