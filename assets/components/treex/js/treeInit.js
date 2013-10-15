@@ -60,9 +60,14 @@
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
       }
     }, tree.bind("tree.contextmenu", function(event) {
-      var node;
+      var contextmenu, node;
       node = event.node;
-      return alert(node.name + " id: " + node.id + " cls: " + node.cls);
+      console.log(node);
+      contextmenu = $('<div class="js-contextmenu contextmenu">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>');
+      contextmenu.bind('mouseout', function() {
+        return $(this).remove();
+      });
+      return $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').append(contextmenu);
     }), tree.bind("tree.move", function(event) {
       var data, data_url, nodeId, parentPrevId, position, targetId,
         _this = this;
@@ -101,7 +106,9 @@
     return tree.bind("tree.click", function(event) {
       var node;
       node = event.node;
-      return window.location.href = node.page.replace('&amp;', '&');
+      if (typeof node.page !== 'undefined') {
+        return window.location.href = node.page.replace('&amp;', '&');
+      }
     });
   });
 

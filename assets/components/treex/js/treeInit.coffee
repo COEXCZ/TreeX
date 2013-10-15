@@ -71,9 +71,18 @@
     tree.bind "tree.contextmenu", (event) ->
       # The clicked node is 'event.node'
       node = event.node
-      alert node.name + " id: " + node.id + " cls: " + node.cls
+      console.log node
+      #alert node.name + " id: " + node.id + " cls: " + node.cls
+      #console.log event.click_event
 
+      contextmenu = $('<div class="js-contextmenu contextmenu">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>')
+      contextmenu.bind('mouseout', ->
+        $(this).remove()
+      )
+    
+      $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').append(contextmenu)
 
+        
     # move element event
     tree.bind "tree.move", (event) ->
       # prepare params
@@ -120,6 +129,8 @@
     
     # The clicked node is 'event.node'
     node = event.node
-    window.location.href = node.page.replace('&amp;','&'); 
+    if typeof node.page != 'undefined'
+      window.location.href = node.page.replace('&amp;','&'); 
 
   
+ 
