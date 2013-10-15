@@ -60,13 +60,15 @@
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
       }
     }, tree.bind("tree.contextmenu", function(event) {
-      var contextmenu, node;
-      node = event.node;
-      console.log(node);
-      contextmenu = $('<div class="js-contextmenu contextmenu">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>');
+      var contextmenu, parentOffset, relX, relY;
+      parentOffset = $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').offset();
+      relX = event.click_event.pageX - parentOffset.left;
+      relY = event.click_event.pageY - parentOffset.top;
+      contextmenu = $('<div class="js-contextmenu contextmenu" style="top: ' + (relY - 5) + 'px; left: ' + (relX - 5) + 'px;">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>');
       contextmenu.bind('mouseout', function() {
         return $(this).remove();
       });
+      $('.js-contextmenu').remove();
       return $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').append(contextmenu);
     }), tree.bind("tree.move", function(event) {
       var data, data_url, nodeId, parentPrevId, position, targetId,

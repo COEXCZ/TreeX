@@ -61,26 +61,28 @@
       $li.find(".jqtree-toggler").addClass "icon-caret-down"
 
   
-    #$li.hasClass('jqtree-folder').addClass('folder');
-    #$li.find('.jqtree-element').append(
-    #                '<a href="#node-'+ node.id +'" class="edit" data-node-id="'+
-    #                node.id +'">edit</a>'
-    #            );
-    
     # right click context menu
     tree.bind "tree.contextmenu", (event) ->
       # The clicked node is 'event.node'
-      node = event.node
-      console.log node
+      #node = event.node
+      #console.log node
       #alert node.name + " id: " + node.id + " cls: " + node.cls
       #console.log event.click_event
 
-      contextmenu = $('<div class="js-contextmenu contextmenu">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>')
+      # get contextmenu position
+      parentOffset = $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').offset(); 
+      relX = event.click_event.pageX - parentOffset.left;
+      relY = event.click_event.pageY - parentOffset.top;
+
+      contextmenu = $('<div class="js-contextmenu contextmenu" style="top: '+(relY-5)+'px; left: '+(relX-5)+'px;">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>')
       contextmenu.bind('mouseout', ->
         $(this).remove()
       )
     
+      $('.js-contextmenu').remove()
+    
       $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').append(contextmenu)
+
 
         
     # move element event
