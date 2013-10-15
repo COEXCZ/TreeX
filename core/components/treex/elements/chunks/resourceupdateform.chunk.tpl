@@ -1,3 +1,5 @@
+[[!initRedactor]]
+
 [[!FormIt?
     &hooks=`updateResource`
     &preHooks=`fetchResource`
