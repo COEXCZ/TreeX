@@ -1,47 +1,5 @@
 ﻿$ ->
-  ###
-  data = [
-    id: 1
-    label: "node1"
-    elmClass: "icon-folder icon-doctype icon-folder-open"
-    children: [
-      id: 2
-      label: "child1"
-      elmClass: "icon-filetype icon-doctype icon-columns"
-    ,
-      id: 3
-      label: "child2"
-      elmClass: "icon-filetype icon-doctype icon-columns"
-    ]
-  ,
-    id: 4
-    label: "node2"
-    elmClass: "icon-folder icon-doctype icon-folder-open"
-    children: [
-      id: 5
-      label: "child3"
-    ]
-  ,
-    id: 6
-    label: "node3"
-    elmClass: "icon-folder icon-doctype icon-folder-open"
-    children: []
-  ]
-  ###
-  ###
-  json = (->
-    json = null
-    $.ajax
-      async: false
-      global: false
-      url: dataUrl
-      dataType: "json"
-      success: (data) ->
-        json = data
-
-    json
-  )()
-  ###
+ 
   tree = $(".js-tree")
   tree.tree
     #NOTE: data are placed via 'data-url' param to enable dynamic nodes children loading
@@ -68,13 +26,26 @@
       #console.log node
       #alert node.name + " id: " + node.id + " cls: " + node.cls
       #console.log event.click_event
+      
+      # get node info
+      node = event.node
+      nodeCls = node.cls.split(' ')
+      nodeType = node.type
 
       # get contextmenu position
       parentOffset = $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').offset(); 
       relX = event.click_event.pageX - parentOffset.left;
       relY = event.click_event.pageY - parentOffset.top;
 
-      contextmenu = $('<div class="js-contextmenu contextmenu" style="top: '+(relY-5)+'px; left: '+(relX-5)+'px;">asd fasdf a dsf<br /> asdf asdf asdf <br />asdfasdfadsf</div>')
+      contextmenu = ''
+
+      # determine node type
+      if node.type == 'modResource' || node.type == 'modDocument' || node.type == 'modContext'
+        contextmenu = $('<div class="js-contextmenu contextmenu" style="top: '+(relY-5)+'px; left: '+(relX-5)+'px;"><ul></ul></div>')
+        if nodeCls.indexOf('pnew_modDocument') != -1
+          contextmenu.append('<li><a href="#">aaa</a></li>')
+
+
       contextmenu.bind('mouseout', ->
         $(this).remove()
       )
