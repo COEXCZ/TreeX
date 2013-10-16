@@ -2,6 +2,11 @@
 (function() {
   $(function() {
     var tree;
+    if (treexSettings.create_form_url.indexOf('?') !== -1) {
+      treexSettings.urls_params_connector = '&';
+    } else {
+      treexSettings.urls_params_connector = '?';
+    }
     tree = $(".js-tree");
     tree.tree({
       autoOpen: false,
@@ -26,7 +31,7 @@
       if (node.type === 'modResource' || node.type === 'modDocument' || node.type === 'modContext') {
         contextmenu = $('<div class="js-contextmenu contextmenu" style="top: ' + (relY - 5) + 'px; left: ' + (relX - 5) + 'px;"><ul></ul></div>');
         if (nodeCls.indexOf('pnew_modDocument') !== -1) {
-          contextmenuItem = $('<li><a href="' + treexSettings.create_form_url + '&parent=' + node.id + '">aaa</a></li>');
+          contextmenuItem = $('<li><a href="' + treexSettings.create_form_url + treexSettings.urls_params_connector + 'parent=' + node.id + '">' + treexSettings.translate_newdocument + '</a></li>');
           contextmenu.append(contextmenuItem);
         }
       }
@@ -74,7 +79,7 @@
       var node;
       node = event.node;
       if (node.type === 'modResource' || node.type === 'modDocument') {
-        return window.location.href = treexSettings.update_form_url + '&resource=' + node.pk;
+        return window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk;
       }
     });
   });
