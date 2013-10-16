@@ -1,16 +1,14 @@
 [[!initRedactor]]
 
 [[!FormIt?
-    &hooks=`updateResource`
-    &preHooks=`fetchResource`
+    &hooks=`createResource`
     &validate=`pagetitle:required`
 ]]
 
-<h2>Update resource</h2>
+<h2>Create a new resource</h2>
 [[!+fi.error_message:notempty=`<p>[[!+fi.error_message]]</p>`]]
 <form class="form" action="[[~[[*id]]]]" method="post">
     <input type="hidden" name="nospam:blank" value="" />
-    <input type="hidden" id="resource_id" name="resource_id" value="[[!+fi.resource_id]]" />
 
     <label for="pagetitle"> Title: <span class="error">[[!+fi.error.pagetitle]]</span> </label>
     <input id="pagetitle" type="text" name="pagetitle" value="[[!+fi.pagetitle]]" /> <br />

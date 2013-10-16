@@ -15,6 +15,7 @@ class TreeX {
     public function __construct(&$modx, array $options = array()) {
         $this->modx =& $modx;
         $corePath = $this->getOption('core_path', $options, MODX_CORE_PATH . 'components/treex/');
+        $assetsPath = $this->getOption('assets_path', $options, MODX_ASSETS_PATH . 'components/treex/');
         $assetsUrl = $this->getOption('assets_url', $options, MODX_ASSETS_URL . 'components/treex/');
         $connectorUrl = $assetsUrl . 'connector.php';
         $this->options = array_merge(
@@ -22,6 +23,7 @@ class TreeX {
                 'assetsUrl' => $assetsUrl,
                 'connectorUrl' => $connectorUrl,
                 'corePath' => $corePath,
+                'assetsPath' => $assetsPath,
                 'modelPath' => $corePath . 'model/',
                 'processorsPath' => $corePath . 'processors/',
                 'processors_path' => $corePath . 'processors/',
