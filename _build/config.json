@@ -3,7 +3,7 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.0.6"
+    ,"version": "1.0.7"
     ,"package":{
         "elements": {
             "chunks": [{
@@ -23,6 +23,8 @@
                 "name": "createResource"
             },{
                 "name": "initRedactor"
+            },{
+                "name": "setParent"
             }]
         }
         ,"systemSettings": [{
