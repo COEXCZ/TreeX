@@ -15,7 +15,6 @@
 $values = $hook->getValues();
 
 $values['published'] = isset($values['published']) ? 1 : 0;
-$values['parent'] = $_GET['parent'];
 
 $processorResponse = $modx->runProcessor('resource/create', $values);
 $response = $processorResponse->getResponse();
