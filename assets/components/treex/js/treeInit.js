@@ -73,7 +73,7 @@
     return tree.bind("tree.click", function(event) {
       var node;
       node = event.node;
-      if (typeof node.page !== 'undefined') {
+      if (node.type === 'modResource' || node.type === 'modDocument') {
         return window.location.href = treexSettings.update_form_url + '&resource=' + node.pk;
       }
     });
