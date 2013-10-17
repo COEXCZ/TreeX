@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $('textarea').redactor({
+        var wysiwyg = $('textarea').redactor({
             paragraphy: false,
             convertDivs: false,
             imageUpload: '[[+connectorUrl]]?action=[[+imageUploadAction]]',
@@ -11,6 +11,16 @@
             },
             fileUploadErrorCallback: function(json){
                 alert(json.msg);
+            },
+            initCallback: function(){
+                var tabs = $( "#tabs" ).tabs();
+                tabs.find( ".ui-tabs-nav" ).sortable({
+                    axis: "x",
+                    stop: function() {
+                        tabs.tabs( "refresh" );
+                        wysiwyg.redactor('sync');
+                    }
+                });
             }
         });
     });
