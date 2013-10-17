@@ -31,6 +31,22 @@ $snippets[2]->fromArray(array(
      'snippet' => getSnippetContent($sources['snippets'].'createresource.snippet.php'),
 ),'',true,true);
 
+$snippets[3]= $modx->newObject('modSnippet');
+$snippets[3]->fromArray(array(
+     'id' => 3,
+     'name' => 'setParent',
+     'description' => 'Sets parent resoruce',
+     'snippet' => getSnippetContent($sources['snippets'].'setparent.snippet.php'),
+),'',true,true);
+
+$snippets[4]= $modx->newObject('modSnippet');
+$snippets[4]->fromArray(array(
+     'id' => 4,
+     'name' => 'initRedactor',
+     'description' => 'Redactor\'s init script',
+     'snippet' => getSnippetContent($sources['snippets'].'initredactor.snippet.php'),
+),'',true,true);
+
 
 
 return $snippets;
