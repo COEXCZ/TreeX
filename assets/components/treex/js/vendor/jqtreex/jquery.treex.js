@@ -1916,11 +1916,9 @@ limitations under the License.
       var open_nodes, parsePath, selected_node, selected_node_id;
       if (state) {
         open_nodes = state.open_nodes;
-        console.log(open_nodes);
         open_nodes = JSON.parse(open_nodes);
         selected_node_id = state.selected_node;
         parsePath = function(nodes, elm) {
-          debugger;
           var item, node, _i, _len, _results;
           _results = [];
           for (_i = 0, _len = nodes.length; _i < _len; _i++) {
@@ -1936,7 +1934,6 @@ limitations under the License.
           }
           return _results;
         };
-        debugger;
         parsePath(open_nodes, this);
         /*
         # old engine for open nodes loading action

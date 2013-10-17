@@ -1,5 +1,13 @@
 ﻿$ ->
- 
+
+  # if there are "seo" urls, thed use "?"" sign in url, otherwise use "&" sign because there is "?" sign placed
+  if treexSettings.create_form_url.indexOf('?') != -1
+    treexSettings.urls_params_connector = '&'
+  else
+    treexSettings.urls_params_connector = '?'
+
+
+  # initialize tree engine
   tree = $(".js-tree")
   tree.tree
     #NOTE: data are placed via 'data-url' param to enable dynamic nodes children loading
@@ -12,21 +20,12 @@
     autoOpen: true
 
     onCreateLi: (node, $li) ->
-      
-      #console.log($li.hasClass('jqtree-folder'));
-      #$li.addClass "folder"  if $li.hasClass("jqtree-folder")
       $li.find(".jqtree-title").addClass node.cls
       $li.find(".jqtree-toggler").addClass "icon-caret-down"
 
   
     # right click context menu
     tree.bind "tree.contextmenu", (event) ->
-      # The clicked node is 'event.node'
-      #node = event.node
-      #console.log node
-      #alert node.name + " id: " + node.id + " cls: " + node.cls
-      #console.log event.click_event
-      
       # get node info
       node = event.node
       nodeCls = node.cls.split(' ')
@@ -41,12 +40,15 @@
 
       # determine node type
       if node.type == 'modResource' || node.type == 'modDocument' || node.type == 'modContext'
+        
         contextmenu = $('<div class="js-contextmenu contextmenu" style="top: '+(relY-5)+'px; left: '+(relX-5)+'px;"><ul></ul></div>')
+        
         if nodeCls.indexOf('pnew_modDocument') != -1
-          contextmenu.append('<li><a href="#">aaa</a></li>')
+          contextmenuItem = $('<li><a href="' + treexSettings.create_form_url + treexSettings.urls_params_connector + 'parent=' + node.id + '">' + treexSettings.translate_newdocument + '</a></li>')
+          contextmenu.append(contextmenuItem)
 
 
-      contextmenu.bind('mouseout', ->
+      contextmenu.bind('mouseleave', ->
         $(this).remove()
       )
     
@@ -55,7 +57,6 @@
       $(event.click_event.target).closest('ul.jqtree-tree .jqtree-element').append(contextmenu)
 
 
-        
     # move element event
     tree.bind "tree.move", (event) ->
       # prepare params
@@ -88,7 +89,6 @@
       )
       
 
-
   # node opened
   tree.bind "tree.open", (event) ->
     
@@ -102,8 +102,8 @@
     
     # The clicked node is 'event.node'
     node = event.node
-    if typeof node.page != 'undefined'
-      window.location.href = node.page.replace('&amp;','&'); 
+    if node.type == 'modResource' || node.type == 'modDocument'
+      window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk
 
   
  

@@ -2,6 +2,11 @@
 (function() {
   $(function() {
     var tree;
+    if (treexSettings.create_form_url.indexOf('?') !== -1) {
+      treexSettings.urls_params_connector = '&';
+    } else {
+      treexSettings.urls_params_connector = '?';
+    }
     tree = $(".js-tree");
     tree.tree({
       autoOpen: false,
@@ -15,7 +20,7 @@
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
       }
     }, tree.bind("tree.contextmenu", function(event) {
-      var contextmenu, node, nodeCls, nodeType, parentOffset, relX, relY;
+      var contextmenu, contextmenuItem, node, nodeCls, nodeType, parentOffset, relX, relY;
       node = event.node;
       nodeCls = node.cls.split(' ');
       nodeType = node.type;
@@ -26,10 +31,11 @@
       if (node.type === 'modResource' || node.type === 'modDocument' || node.type === 'modContext') {
         contextmenu = $('<div class="js-contextmenu contextmenu" style="top: ' + (relY - 5) + 'px; left: ' + (relX - 5) + 'px;"><ul></ul></div>');
         if (nodeCls.indexOf('pnew_modDocument') !== -1) {
-          contextmenu.append('<li><a href="#">aaa</a></li>');
+          contextmenuItem = $('<li><a href="' + treexSettings.create_form_url + treexSettings.urls_params_connector + 'parent=' + node.id + '">' + treexSettings.translate_newdocument + '</a></li>');
+          contextmenu.append(contextmenuItem);
         }
       }
-      contextmenu.bind('mouseout', function() {
+      contextmenu.bind('mouseleave', function() {
         return $(this).remove();
       });
       $('.js-contextmenu').remove();
@@ -72,8 +78,8 @@
     return tree.bind("tree.click", function(event) {
       var node;
       node = event.node;
-      if (typeof node.page !== 'undefined') {
-        return window.location.href = node.page.replace('&amp;', '&');
+      if (node.type === 'modResource' || node.type === 'modDocument') {
+        return window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk;
       }
     });
   });
