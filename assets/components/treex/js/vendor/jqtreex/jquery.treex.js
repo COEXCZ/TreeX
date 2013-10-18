@@ -1913,10 +1913,14 @@ limitations under the License.
     };
 
     SaveStateHandler.prototype.setState = function(state) {
-      var open_nodes, parsePath, selected_node, selected_node_id;
+      var error, open_nodes, parsePath, selected_node, selected_node_id;
       if (state) {
         open_nodes = state.open_nodes;
-        open_nodes = JSON.parse(open_nodes);
+        try {
+          open_nodes = JSON.parse(open_nodes);
+        } catch (_error) {
+          error = _error;
+        }
         selected_node_id = state.selected_node;
         parsePath = function(nodes, elm) {
           var item, node, _i, _len, _results;
