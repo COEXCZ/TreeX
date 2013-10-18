@@ -51,6 +51,7 @@
 </script>
 
 <style>
+    /* custom toggler */
     .redactor_editor #tabs>ul li {
         display: -moz-inline-stack;
         display: inline-block;
