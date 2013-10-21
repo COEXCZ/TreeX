@@ -31,6 +31,7 @@ $treeX = $modx->getService(
 $tpl = $modx->getOption('tpl', $scriptProperties, 'initRedactorTpl');
 $fileUploadAction = $modx->getOption('fileUploadAction', $scriptProperties, 'web/resource/fileupload');
 $imageUploadAction = $modx->getOption('imageUploadAction', $scriptProperties, 'web/resource/imageupload');
+$getImagesAction = $modx->getOption('getImagesAction', $scriptProperties, 'web/resource/getimages');
 
 $assets = $treeX->getOption('assetsUrl');
 
@@ -54,7 +55,9 @@ $phs = array(
     'connectorUrl' => $treeX->getOption('connectorUrl'),
     'params' => $modx->toJSON($params),
     'fileUploadAction' => $fileUploadAction,
-    'imageUploadAction' => $imageUploadAction
+    'imageUploadAction' => $imageUploadAction,
+    'getImagesAction' => $getImagesAction,
+    'resourceId' => $resource
 );
 
 $modx->regClientStartupHTMLBlock($modx->getChunk($tpl, $phs));
