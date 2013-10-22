@@ -79,4 +79,45 @@ class TreeX {
         if (!is_string($key) || $key === '') throw new InvalidArgumentException("Attempt to set value for an invalid option key");
         $this->options[$key] = $value;
     }
+
+    /**
+     * Return path through all parents for specified node
+     *
+     * @param $startNode
+     * @param $contextKey
+     * @param $includeSelf
+     * @return array|bool
+     */
+    public function getNodePath($startNode, $contextKey, $includeSelf = true){
+        $path = array();
+
+        if(empty($contextKey) && $startNode == 0) {
+            return false;
+        }
+
+        if($startNode == 0) {
+            $path[] = $contextKey . '_' . $startNode;
+            return 'treex/' . implode('_dir/', $path);
+        }
+
+        /** @var modResource $node */
+        $node = $this->modx->getObject('modResource', array('id' => $startNode));
+        if($includeSelf) {
+            $path[] = $node->context_key . '_' . $node->id;
+        }
+
+        /** @var modResource $parent */
+        $parent = $node->getOne('Parent');
+        while($parent) {
+            $path[] = $parent->context_key . '_' . $parent->id;
+
+            $parent = $parent->getOne('Parent');
+        }
+
+        $path[] = $node->context_key . '_' . 0;
+
+        $path = array_reverse($path);
+
+        return 'treex/' . implode('_dir/', $path);
+    }
 }
