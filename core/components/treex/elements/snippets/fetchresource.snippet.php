@@ -36,6 +36,8 @@ $response = $processorResponse->getResponse();
 
 $response['object']['resource_id'] = $response['object']['id'];
 $response['object']['published'] = ($response['object']['published'] == true) ? 1 : 0;
+$response['object']['content'] = str_replace('[', '&#91;', $response['object']['content']);
+$response['object']['content'] = str_replace(']', '&#93;', $response['object']['content']);
 
 unset($response['object']['id']);
 

@@ -5,6 +5,7 @@
             convertDivs: false,
             imageUpload: '[[+connectorUrl]]?action=[[+imageUploadAction]]',
             fileUpload: '[[+connectorUrl]]?action=[[+fileUploadAction]]',
+            imageGetJson: '[[+connectorUrl]]?action=[[+getImagesAction]]&resource=[[+resourceId]]',
             uploadFields: [[+params]],
             imageUploadErrorCallback: function(json){
                 alert(json.msg);

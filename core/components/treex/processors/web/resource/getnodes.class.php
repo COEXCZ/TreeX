@@ -24,16 +24,16 @@ class TreeXGetNodesProcessor extends modProcessor {
 
     public function initialize() {
         $this->setDefaultProperties(array(
-                                        'sortBy' => $this->modx->getOption('tree_default_sort',null,'menuindex'),
-                                        'sortDir' => 'ASC',
-                                        'stringLiterals' => false,
-                                        'noMenu' => false,
-                                        'debug' => false,
-                                        'nodeField' => $this->modx->getOption('resource_tree_node_name',null,'pagetitle'),
-                                        'qtipField' => $this->modx->getOption('resource_tree_node_tooltip',null,''),
-                                        'currentResource' => false,
-                                        'currentAction' => false,
-                                    ));
+            'sortBy' => $this->modx->getOption('tree_default_sort',null,'menuindex'),
+            'sortDir' => 'ASC',
+            'stringLiterals' => false,
+            'noMenu' => false,
+            'debug' => false,
+            'nodeField' => $this->modx->getOption('resource_tree_node_name',null,'pagetitle'),
+            'qtipField' => $this->modx->getOption('resource_tree_node_tooltip',null,''),
+            'currentResource' => false,
+            'currentAction' => false,
+        ));
         return true;
     }
 
@@ -145,44 +145,50 @@ class TreeXGetNodesProcessor extends modProcessor {
     public function getResourceQuery() {
         $resourceColumns = array(
             'id'
-        ,'pagetitle'
-        ,'longtitle'
-        ,'alias'
-        ,'description'
-        ,'parent'
-        ,'published'
-        ,'deleted'
-        ,'isfolder'
-        ,'menuindex'
-        ,'menutitle'
-        ,'hidemenu'
-        ,'class_key'
-        ,'context_key'
+            ,'pagetitle'
+            ,'longtitle'
+            ,'alias'
+            ,'description'
+            ,'parent'
+            ,'published'
+            ,'deleted'
+            ,'isfolder'
+            ,'menuindex'
+            ,'menutitle'
+            ,'hidemenu'
+            ,'class_key'
+            ,'context_key'
         );
-        $this->itemClass= 'modResource';
-        $c= $this->modx->newQuery($this->itemClass);
+
+        $this->itemClass = 'modResource';
+
+        $c = $this->modx->newQuery($this->itemClass);
         $c->leftJoin('modResource', 'Child', array('Child.class_key' => 'modDocument', 'modResource.id = Child.parent'));
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
-                       'childrenCount' => 'COUNT(Child.id)',
-                   ));
+            'childrenCount' => 'COUNT(Child.id)',
+        ));
+
         $c->where(array(
-                      'class_key' => 'modDocument',
-                      'context_key' => $this->contextKey,
-                      'show_in_tree' => true,
-                  ));
+            'class_key' => 'modDocument',
+            'context_key' => $this->contextKey,
+            'show_in_tree' => true,
+        ));
+
         if (empty($this->startNode) && !empty($this->defaultRootId)) {
             $c->where(array(
-                          'id:IN' => explode(',', $this->defaultRootId),
-                          'parent:NOT IN' => explode(',', $this->defaultRootId),
-                      ));
+                'id:IN' => explode(',', $this->defaultRootId),
+                'parent:NOT IN' => explode(',', $this->defaultRootId),
+            ));
         } else {
             $c->where(array(
-                          'parent' => $this->startNode,
-                      ));
+                'parent' => $this->startNode,
+            ));
         }
+
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
         $c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
+
         return $c;
     }
 
@@ -195,6 +201,7 @@ class TreeXGetNodesProcessor extends modProcessor {
     public function iterate(array $collection = array()) {
         /* now process actual tree nodes */
         $item = reset($collection);
+
         /** @var modContext|modResource $item */
         while ($item) {
             $canList = $item->checkPolicy('list');
@@ -214,6 +221,7 @@ class TreeXGetNodesProcessor extends modProcessor {
                     $this->items[] = $itemArray;
                 }
             }
+
             $item = next($collection);
         }
     }
@@ -276,13 +284,13 @@ class TreeXGetNodesProcessor extends modProcessor {
     public function prepareResourceNode(modResource $resource) {
         $qtipField = $this->getProperty('qtipField');
         $nodeField = $this->getProperty('nodeField');
-        $noHref = $this->getProperty('noHref',false);
 
         $hasChildren = (int)$resource->get('childrenCount') > 0 && $resource->get('hide_children_in_tree') == 0 ? true : false;
 
         $class = array();
         $class[] = 'icon-'.strtolower(str_replace('mod','',$resource->get('class_key')));
         $class[] = $resource->isfolder ? 'icon-folder' : 'x-tree-node-leaf icon-resource';
+
         if (!$resource->get('published')) $class[] = 'unpublished';
         if ($resource->get('deleted')) $class[] = 'deleted';
         if ($resource->get('hidemenu')) $class[] = 'hidemenu';
@@ -291,6 +299,7 @@ class TreeXGetNodesProcessor extends modProcessor {
         if (!empty($this->permissions['view_document'])) $class[] = $this->permissions['view_document'];
         if (!empty($this->permissions['edit_document'])) $class[] = $this->permissions['edit_document'];
         if (!empty($this->permissions['resource_duplicate'])) $class[] = $this->permissions['resource_duplicate'];
+
         if ($resource->allowChildrenResources) {
             if (!empty($this->permissions['new_document'])) $class[] = $this->permissions['new_document'];
             if (!empty($this->permissions['new_symlink'])) $class[] = $this->permissions['new_symlink'];
@@ -299,11 +308,13 @@ class TreeXGetNodesProcessor extends modProcessor {
             if (!empty($this->permissions['resource_quick_create'])) $class[] = $this->permissions['resource_quick_create'];
             if (!empty($this->permissions['resource_quick_update'])) $class[] = $this->permissions['resource_quick_update'];
         }
+
         if (!empty($this->permissions['delete_document'])) $class[] = $this->permissions['delete_document'];
         if (!empty($this->permissions['undelete_document'])) $class[] = $this->permissions['undelete_document'];
         if (!empty($this->permissions['publish_document'])) $class[] = $this->permissions['publish_document'];
         if (!empty($this->permissions['unpublish_document'])) $class[] = $this->permissions['unpublish_document'];
         if ($hasChildren) $class[] = 'haschildren';
+
         if ($this->getProperty('currentResource') == $resource->id && $this->getProperty('currentAction') == $this->actions['resource/update']) {
             $class[] = 'active-node';
         }
@@ -347,13 +358,16 @@ class TreeXGetNodesProcessor extends modProcessor {
             'page' => $updateUrl,
             'allowDrop' => true,
         );
+
         if (!$hasChildren) {
             $itemArray['children'] = array();
             $itemArray['expanded'] = true;
         } else {
             $itemArray['load_on_demand'] = true;
         }
+
         $itemArray = $resource->prepareTreeNode($itemArray);
+
         return $itemArray;
     }
 }

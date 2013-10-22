@@ -22,5 +22,5 @@
     <input id="published" type="checkbox" name="published" value="1" [[!+fi.published:FormItIsChecked=`1`]] />
 
 
-    [[-<div class="form-buttons"><input type="submit" value="Save resource" /></div>]]
+    <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 </form>
