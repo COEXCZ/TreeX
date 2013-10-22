@@ -17,6 +17,9 @@ class TreeXSortProcessor extends modProcessor {
     /** @var modResource|string $target */
     private $target;
 
+    /** @var modResource|string $prev */
+    private $prev;
+
     /** @var int $after */
     private $after;
 
@@ -44,6 +47,8 @@ class TreeXSortProcessor extends modProcessor {
             $this->moveAfter();
         }
 
+        $this->clearCache();
+
         return $this->success();
     }
 
@@ -57,12 +62,15 @@ class TreeXSortProcessor extends modProcessor {
 
         $node = $this->getProperty('node');
         $target = $this->getProperty('target');
+        $prev = $this->getProperty('prev');
 
         $node = explode('_', $node);
         $target = explode('_', $target);
+        $prev = explode('_', $prev);
 
         $this->node = $this->modx->getObject('modResource', $node[1]);
         $this->target = ($target[1] == 0) ? $target[0] : $this->modx->getObject('modResource', $target[1]);
+        $this->prev = ($prev[1] == 0) ? $prev[0] : $this->modx->getObject('modResource', $prev[1]);
 
         if (empty($this->node) || empty($this->target)) {
             return $this->modx->lexicon('treex.resource_nf');
@@ -149,6 +157,34 @@ class TreeXSortProcessor extends modProcessor {
         }
 
         return true;
+    }
+
+    /**
+     * Clears cache for target and previous node
+     */
+    public function clearCache() {
+        $this->clearCacheForNode($this->target);
+
+        if($this->prev) {
+            $this->clearCacheForNode($this->prev);
+        }
+    }
+
+    /**
+     * Clears cache for $node and its parent
+     *
+     * @param modResource $node
+     */
+    private function clearCacheForNode(modResource $node) {
+        $nodePath = $this->modx->treex->getNodePath($node->id, $node->context_key);
+        $this->modx->cacheManager->delete($nodePath);
+
+        $nodePathItems = explode('/', $nodePath);
+        array_pop($nodePathItems);
+
+        $nodePathItems = implode('/', $nodePathItems);
+        $nodePathItems = substr($nodePathItems, 0, -4);
+        $this->modx->cacheManager->delete($nodePathItems);
     }
 }
 return 'TreeXSortProcessor';

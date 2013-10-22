@@ -9,6 +9,7 @@ class TreeXGetNodesProcessor extends modProcessor {
     /** @var int $defaultRootId */
     public $defaultRootId;
     public $itemClass;
+    public $node;
     public $contextKey = false;
     public $startNode = 0;
     public $items = array();
@@ -44,6 +45,14 @@ class TreeXGetNodesProcessor extends modProcessor {
      */
     public function process() {
         $this->getRootNode();
+
+        $nodePath = $this->modx->treex->getNodePath($this->startNode, $this->contextKey);
+        if($nodePath !== false) {
+            $fromCache = $this->modx->cacheManager->get($nodePath);
+            if ($fromCache) {
+                return $fromCache;
+            }
+        }
         $this->prepare();
 
         if (empty($this->contextKey) || $this->contextKey == 'root') {
@@ -57,9 +66,21 @@ class TreeXGetNodesProcessor extends modProcessor {
         $this->iterate($collection);
 
         if ($this->getProperty('stringLiterals',false)) {
-            return $this->modx->toJSON($this->items);
+            $json = $this->modx->toJSON($this->items);
+
+            if($nodePath !== false) {
+                $this->modx->cacheManager->set($nodePath, $json);
+            }
+
+            return $json;
         } else {
-            return $this->toJSON($this->items);
+            $json = $this->toJSON($this->items);
+
+            if($nodePath !== false) {
+                $this->modx->cacheManager->set($nodePath, $json);
+            }
+
+            return $json;
         }
     }
 
@@ -109,10 +130,13 @@ class TreeXGetNodesProcessor extends modProcessor {
         if (empty($id) || $id == 'root') {
             $this->startNode = $this->defaultRootId;
         } else {
-            $parts= explode('_',$id);
-            $this->contextKey= isset($parts[0]) ? $parts[0] : false;
+            $parts = explode('_',$id);
+            $this->contextKey = isset($parts[0]) ? $parts[0] : false;
             $this->startNode = !empty($parts[1]) ? intval($parts[1]) : 0;
         }
+
+        $this->node = $id;
+
         if ($this->getProperty('debug')) {
             echo '<p style="width: 800px; font-family: \'Lucida Console\'; font-size: 11px">';
         }
