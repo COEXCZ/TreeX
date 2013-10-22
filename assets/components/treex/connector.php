@@ -2,7 +2,6 @@
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/config.core.php';
 require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
-
 require_once MODX_CONNECTORS_PATH . 'index.php';
 
 $corePath = $modx->getOption('treex.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/treex/');
@@ -21,7 +20,6 @@ $webActions = array(
     'web/resource/sort',
     'web/resource/imageupload',
     'web/resource/fileupload',
-    'web/resource/getimages',
 );
 
 if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {

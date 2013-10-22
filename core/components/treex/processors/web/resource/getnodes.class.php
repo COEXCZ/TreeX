@@ -186,6 +186,11 @@ class TreeXGetNodesProcessor extends modProcessor {
             ));
         }
 
+
+        $c->where(array(
+            'deleted' => 0,
+        ));
+
         $c->groupby($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns), '');
         $c->sortby('modResource.'.$this->getProperty('sortBy'),$this->getProperty('sortDir'));
 
