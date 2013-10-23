@@ -3,6 +3,7 @@ Changelog for TreeX.
 Calendar 1.0.12
 ==============
 - Cache support
+- abbility to show tree to user logged via "login EXTRA"
 
 Calendar 1.0.11
 ==============
