@@ -49,7 +49,7 @@ $snippets[4]->fromArray(array(
 
 $snippets[5]= $modx->newObject('modSnippet');
 $snippets[5]->fromArray(array(
-     'id' => 4,
+     'id' => 5,
      'name' => 'injectMgr',
      'description' => 'If user is manager, then inject mgr context (when you log in via Login EXTRA)',
      'snippet' => getSnippetContent($sources['snippets'].'injectmgr.snippet.php'),
