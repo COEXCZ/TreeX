@@ -62,4 +62,4 @@ $events[0]['OnDocUnPublished']->fromArray(array(
 
 $plugins[0]->addMany($events[0]);
 
-return $snippets;
+return $plugins;
