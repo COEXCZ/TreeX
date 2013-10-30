@@ -14,7 +14,7 @@ set_time_limit(0);
 /* define package */
 define('PKG_NAME','TreeX');
 define('PKG_NAME_LOWER','treex');
-define('PKG_VERSION','1.0.12');
+define('PKG_VERSION','1.0.13');
 define('PKG_RELEASE','alpha');
 
 /* define sources */
