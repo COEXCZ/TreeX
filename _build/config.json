@@ -3,7 +3,7 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.0.12"
+    ,"version": "1.0.13"
     ,"package":{
         "elements": {
             "chunks": [{
@@ -38,6 +38,22 @@
         },{
             "key": "create_form_id"
             ,"area": "default"
+            ,"value": ""
+        },{
+            "key": "upload_images_path"
+            ,"area": "upload"
+            ,"value": ""
+        },{
+            "key": "upload_images_path_url"
+            ,"area": "upload"
+            ,"value": ""
+        },{
+            "key": "upload_files_path"
+            ,"area": "upload"
+            ,"value": ""
+        },{
+            "key": "upload_files_path_url"
+            ,"area": "upload"
             ,"value": ""
         }]
     }

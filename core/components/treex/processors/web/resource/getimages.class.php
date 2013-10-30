@@ -23,11 +23,15 @@ class TreeXImageListProcessor extends modProcessor {
 
         $images = array();
 
-        $directory = $this->modx->treex->getOption('upload_path', null, 'D:/Web/www/coex/TTU/treex/assets/');
-        $url = $this->modx->treex->getOption('upload_path_url', null, '/treex/assets/');
+        $directory = $this->modx->treex->getOption('upload_images_path', null, '/assets/images/');
+        $url = $this->modx->treex->getOption('upload_images_path_url', null, '/assets/images/');
 
         $directory  .= $resourceId . '/';
         $url        .= $resourceId . '/';
+
+        if (!is_dir($directory)) {
+            return false;
+        }
 
         /** @var RecursiveDirectoryIterator $it */
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));

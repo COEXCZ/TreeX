@@ -20,6 +20,7 @@ $webActions = array(
     'web/resource/sort',
     'web/resource/imageupload',
     'web/resource/fileupload',
+    'web/resource/getimages',
 );
 
 if (!empty($_REQUEST['action']) && in_array($_REQUEST['action'], $webActions)) {

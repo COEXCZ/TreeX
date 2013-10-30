@@ -13,6 +13,21 @@ require('upload.class.php');
 
 class TreeXImageUploadProcessor extends TreeXUploadProcessor {
 
+    /**
+     * Sets upload dir path and upload dir URL
+     *
+     * @return bool|string
+     */
+    public function setUploadDir() {
+        $this->uploadDir = $this->modx->treex->getOption('upload_images_path', null, '/assets/images/');
+        $this->uploadDirUrl = $this->modx->treex->getOption('upload_images_path_url', null, '/assets/images/');
+
+        $this->uploadDir .= $this->resource . '/';
+        $this->uploadDirUrl .= $this->resource . '/';
+
+        return true;
+    }
+
     public function validateFile() {
 
         if ($this->file['type'] == 'image/png'

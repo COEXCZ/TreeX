@@ -46,15 +46,7 @@ abstract class TreeXUploadProcessor extends modProcessor {
      *
      * @return bool|string
      */
-    public function setUploadDir() {
-        $this->uploadDir = $this->modx->treex->getOption('upload_path', null, 'D:/Web/www/coex/TTU/treex/assets/');
-        $this->uploadDirUrl = $this->modx->treex->getOption('upload_path_url', null, '/treex/assets/');
-
-        $this->uploadDir .= $this->resource . '/';
-        $this->uploadDirUrl .= $this->resource . '/';
-
-        return true;
-    }
+    abstract public function setUploadDir();
 
     /**
      * Handle file upload
