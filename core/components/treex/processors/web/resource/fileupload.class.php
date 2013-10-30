@@ -19,11 +19,25 @@ class TreeXFileUploadProcessor extends TreeXUploadProcessor {
      * @return bool|string
      */
     public function setUploadDir() {
+        $resource = $this->modx->getObject('modResource', $this->resource);
+
+        $groups = $resource->getGroupsList();
+        $groupId = 0;
+
+        /** @var modResourceGroup $group */
+        foreach ($groups['collection'] as $group) {
+            if ($group->hasAccess($this->modx->user)) {
+                $groupId = $group->get('id');
+
+                break;
+            }
+        }
+
         $this->uploadDir = $this->modx->treex->getOption('upload_files_path', null, '/assets/files/');
         $this->uploadDirUrl = $this->modx->treex->getOption('upload_files_path_url', null, '/assets/files/');
 
-        $this->uploadDir .= $this->resource . '/';
-        $this->uploadDirUrl .= $this->resource . '/';
+        $this->uploadDir .= $groupId . '/';
+        $this->uploadDirUrl .= $groupId . '/';
 
         return true;
     }
@@ -46,9 +60,17 @@ class TreeXFileUploadProcessor extends TreeXUploadProcessor {
      * @return array
      */
     public function prepareOutput() {
+
+        $fileName = explode('_', $this->uploadedFile['name']);
+        array_shift($fileName);
+        $fileName = implode('_', $fileName);
+        $fileName = explode('.', $fileName);
+        array_pop($fileName);
+        $fileName = implode('.', $fileName);
+
         return array(
             'filelink' => $this->uploadDirUrl . $this->uploadedFile['name'],
-            'filename' => $this->uploadedFile['name']
+            'filename' => $fileName
         );
     }
 }

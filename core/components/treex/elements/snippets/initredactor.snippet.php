@@ -32,6 +32,7 @@ $tpl = $modx->getOption('tpl', $scriptProperties, 'initRedactorTpl');
 $fileUploadAction = $modx->getOption('fileUploadAction', $scriptProperties, 'web/resource/fileupload');
 $imageUploadAction = $modx->getOption('imageUploadAction', $scriptProperties, 'web/resource/imageupload');
 $getImagesAction = $modx->getOption('getImagesAction', $scriptProperties, 'web/resource/getimages');
+$getFilesAction = $modx->getOption('getFilesAction', $scriptProperties, 'web/resource/getfiles');
 
 $assets = $treeX->getOption('assetsUrl');
 
@@ -57,6 +58,7 @@ $phs = array(
     'fileUploadAction' => $fileUploadAction,
     'imageUploadAction' => $imageUploadAction,
     'getImagesAction' => $getImagesAction,
+    'getFilesAction' => $getFilesAction,
     'resourceId' => $resource
 );
 

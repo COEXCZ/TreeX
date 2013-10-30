@@ -1,6 +1,6 @@
 <?php
 /**
- * Return list of uploaded images
+ * Return list of uploaded files
  *
  * @param integer    $parent       Indicates if Resource is parent or not (creating or updating resource)
  * @param integer    $resource     ID of Resource
@@ -9,7 +9,7 @@
  * @subpackage processors.resource
  */
 
-class TreeXImageListProcessor extends modProcessor {
+class TreeXFilesListProcessor extends modProcessor {
 
 
     /**
@@ -42,8 +42,8 @@ class TreeXImageListProcessor extends modProcessor {
             }
         }
 
-        $directory = $this->modx->treex->getOption('upload_images_path', null, '/assets/images/');
-        $url = $this->modx->treex->getOption('upload_images_path_url', null, '/assets/images/');
+        $directory = $this->modx->treex->getOption('upload_files_path', null, '/assets/files/');
+        $url = $this->modx->treex->getOption('upload_files_path_url', null, '/assets/files/');
 
         $directory .= $groupId . '/';
         $url.= $groupId . '/';
@@ -60,10 +60,17 @@ class TreeXImageListProcessor extends modProcessor {
 
             if (!$it->isDot() && !$it->isDir()) {
 
+                $fileName = explode('_', $it->getFilename());
+                array_shift($fileName);
+                $fileName = implode('_', $fileName);
+                $fileName = explode('.', $fileName);
+                array_pop($fileName);
+                $fileName = implode('.', $fileName);
+
                 $images[] = array(
-                    "thumb" => $url . $it->getFilename(),
-                    "image" => $url . $it->getFilename(),
-                    "title" => $it->getFilename()
+                    'file' => $url . $it->getFilename(),
+                    'filename' => $fileName,
+                    'title' => $fileName,
                 );
             }
 
@@ -74,4 +81,4 @@ class TreeXImageListProcessor extends modProcessor {
     }
 }
 
-return 'TreeXImageListProcessor';
+return 'TreeXFilesListProcessor';
