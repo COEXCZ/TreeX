@@ -21,13 +21,33 @@ class TreeXImageListProcessor extends modProcessor {
     public function process() {
         $resourceId = $this->getProperty('resource', 0);
 
+        /** @var modResource $resource */
+        $resource = $this->modx->getObject('modResource', $resourceId);
+
+        if (!$resource) {
+            return false;
+        }
+
         $images = array();
+
+        $groups = $resource->getGroupsList();
+        $groupId = 0;
+
+        /** @var modResourceGroup $group */
+        foreach ($groups['collection'] as $group) {
+            if ($group->hasAccess($this->modx->user)) {
+                $groupId = $group->get('id');
+
+                break;
+            }
+        }
 
         $directory = $this->modx->treex->getOption('upload_images_path', null, '/assets/images/');
         $url = $this->modx->treex->getOption('upload_images_path_url', null, '/assets/images/');
 
-        $directory  .= $resourceId . '/';
-        $url        .= $resourceId . '/';
+        $directory .= $groupId . '/';
+        $url.= $groupId . '/';
+
 
         if (!is_dir($directory)) {
             return false;

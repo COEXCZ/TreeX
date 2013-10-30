@@ -19,11 +19,25 @@ class TreeXImageUploadProcessor extends TreeXUploadProcessor {
      * @return bool|string
      */
     public function setUploadDir() {
+        $resource = $this->modx->getObject('modResource', $this->resource);
+
+        $groups = $resource->getGroupsList();
+        $groupId = 0;
+
+        /** @var modResourceGroup $group */
+        foreach ($groups['collection'] as $group) {
+            if ($group->hasAccess($this->modx->user)) {
+                $groupId = $group->get('id');
+
+                break;
+            }
+        }
+
         $this->uploadDir = $this->modx->treex->getOption('upload_images_path', null, '/assets/images/');
         $this->uploadDirUrl = $this->modx->treex->getOption('upload_images_path_url', null, '/assets/images/');
 
-        $this->uploadDir .= $this->resource . '/';
-        $this->uploadDirUrl .= $this->resource . '/';
+        $this->uploadDir .= $groupId . '/';
+        $this->uploadDirUrl .= $groupId . '/';
 
         return true;
     }
