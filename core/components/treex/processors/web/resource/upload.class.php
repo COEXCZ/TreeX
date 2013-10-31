@@ -20,6 +20,55 @@ abstract class TreeXUploadProcessor extends modProcessor {
     public $uploadedFile;
 
     /**
+     * Run the processor, returning a modProcessorResponse object.
+     * @return modProcessorResponse
+     */
+    public function run() {
+        if (!$this->checkPermissions()) {
+            $o = $this->failure($this->modx->lexicon('permission_denied'));
+        } else {
+            $topics = $this->getLanguageTopics();
+            foreach ($topics as $topic) {
+                $this->modx->lexicon->load($topic);
+            }
+
+            $files = $_FILES;
+
+            $uploaded = array();
+            $succ = 0;
+
+            foreach($files as $file) {
+                $this->file = $file;
+                $initialized = $this->initialize();
+                if ($initialized !== true) {
+                    $o = $this->failure($initialized);
+                } else {
+                    $process = $this->process();
+
+                    if (!isset($process['error'])) {
+                        $succ++;
+                        $uploaded[] = $process;
+                    } else {
+                        $o = $process;
+                    }
+
+                }
+            }
+
+            if ($succ == 0) {
+                $o = $this->modx->toJSON($o);
+            } else {
+                $o = $this->modx->toJSON($uploaded);
+            }
+
+        }
+
+
+        $response = new modProcessorResponse($this->modx,$o);
+        return $response;
+    }
+
+    /**
      * Sets properties
      *
      * @return bool|string
@@ -27,7 +76,6 @@ abstract class TreeXUploadProcessor extends modProcessor {
     public function setup() {
         $this->isParent = $this->getProperty('parent', 0);
         $this->resource = $this->getProperty('resource', 0);
-        $this->file = $_FILES['file'];
 
         return true;
     }
@@ -46,15 +94,7 @@ abstract class TreeXUploadProcessor extends modProcessor {
      *
      * @return bool|string
      */
-    public function setUploadDir() {
-        $this->uploadDir = $this->modx->treex->getOption('upload_path', null, 'D:/Web/www/coex/TTU/treex/assets/');
-        $this->uploadDirUrl = $this->modx->treex->getOption('upload_path_url', null, '/treex/assets/');
-
-        $this->uploadDir .= $this->resource . '/';
-        $this->uploadDirUrl .= $this->resource . '/';
-
-        return true;
-    }
+    abstract public function setUploadDir();
 
     /**
      * Handle file upload
@@ -86,7 +126,7 @@ abstract class TreeXUploadProcessor extends modProcessor {
     /**
      * Run processor
      *
-     * @return mixed
+     * @return array
      */
     public function process() {
         $setup = $this->setup();
@@ -109,7 +149,7 @@ abstract class TreeXUploadProcessor extends modProcessor {
             return $this->failure($uploadFile);
         }
 
-        return $this->modx->toJSON($this->prepareOutput());
+        return $this->prepareOutput();
     }
 
     public function failure($msg = '',$object = null) {
@@ -118,7 +158,7 @@ abstract class TreeXUploadProcessor extends modProcessor {
             'msg' => $msg
         );
 
-        return $this->modx->toJSON($response);
+        return $response;
     }
 }
 
