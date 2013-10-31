@@ -76,11 +76,16 @@
       return $(node).addClass('icon-folder-open');
     });
     return tree.bind("tree.click", function(event) {
-      var node;
+      var loadUrl, node;
       node = event.node;
-      if (node.type === 'modResource' || node.type === 'modDocument') {
-        return window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk;
-      }
+      loadUrl = function(node) {
+        if (node.type === 'modResource' || node.type === 'modDocument') {
+          return window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk;
+        }
+      };
+      return tree.tree('openNode', node, true, function() {
+        return loadUrl(node);
+      });
     });
   });
 

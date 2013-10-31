@@ -102,8 +102,13 @@
     
     # The clicked node is 'event.node'
     node = event.node
-    if node.type == 'modResource' || node.type == 'modDocument'
-      window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk
+    
+    # function is used in callback of method below
+    loadUrl = (node) ->
+      if node.type == 'modResource' || node.type == 'modDocument'
+        window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk
 
+    tree.tree('openNode', node, true,  -> loadUrl node);
+    
   
  
