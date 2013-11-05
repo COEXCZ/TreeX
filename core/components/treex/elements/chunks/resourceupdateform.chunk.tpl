@@ -11,7 +11,8 @@
 <form class="form" action="[[~[[*id]]]]" method="post">
     <input type="hidden" name="nospam:blank" value="" />
     <input type="hidden" id="resource_id" name="resource_id" value="[[!+fi.resource_id]]" />
-
+    <input type="hidden" id="context_key" name="context_key" value="[[!+fi.context_key]]" />
+    
     <label for="pagetitle"> Title: <span class="error">[[!+fi.error.pagetitle]]</span> </label>
     <input id="pagetitle" type="text" name="pagetitle" value="[[!+fi.pagetitle]]" /> <br />
 
