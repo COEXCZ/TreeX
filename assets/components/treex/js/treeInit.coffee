@@ -107,8 +107,10 @@
     loadUrl = (node) ->
       if node.type == 'modResource' || node.type == 'modDocument'
         window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk
-
-    tree.tree('openNode', node, true,  -> loadUrl node);
-    
+    #console.log node
+    if node.load_on_demand == true
+      tree.tree('openNode', node, true,  -> loadUrl node);
+    else
+      loadUrl node
   
  

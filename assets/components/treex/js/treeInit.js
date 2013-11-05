@@ -83,9 +83,13 @@
           return window.location.href = treexSettings.update_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk;
         }
       };
-      return tree.tree('openNode', node, true, function() {
+      if (node.load_on_demand === true) {
+        return tree.tree('openNode', node, true, function() {
+          return loadUrl(node);
+        });
+      } else {
         return loadUrl(node);
-      });
+      }
     });
   });
 
