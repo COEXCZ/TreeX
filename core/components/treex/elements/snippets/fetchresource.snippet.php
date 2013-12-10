@@ -39,6 +39,37 @@ $response['object']['published'] = ($response['object']['published'] == true) ? 
 $response['object']['content'] = str_replace('[', '&#91;', $response['object']['content']);
 $response['object']['content'] = str_replace(']', '&#93;', $response['object']['content']);
 
+if ($modx->user && $modx->user->id > 0) {
+    $userGroups = $modx->user->getUserGroups();
+
+    $c = $modx->newQuery('modAccessCategory');
+    $c->where(array(
+        'principal_class' => 'modUserGroup',
+        'principal:IN' => $userGroups,
+    ));
+
+    $categoriesAccess = $modx->getIterator('modAccessCategory', $c);
+
+    $categories = array();
+
+    foreach ($categoriesAccess as $category) {
+        $categories[] = $category->target;
+    }
+
+    $templates = $modx->getIterator('modTemplate', array('category:IN' => $categories));
+
+    $options = array();
+
+    /** @var modTemplate $template */
+    foreach ($templates as $template) {
+        $options[] = '<option value="' . $template->id . '" [[!+fi.template:FormItIsSelected=`' . $template->id . '`]]>' . $template->templatename . '</option>';
+    }
+
+    $response['object']['templateOptions'] = implode('', $options);
+
+}
+
+
 unset($response['object']['id']);
 
 $hook->setValues($response['object']);

@@ -19,6 +19,13 @@
     <label for="content"> Content: <span class="error">[[!+fi.error.content]]</span> </label>
     <textarea id="content" name="content" rows="7" cols="55">[[!+fi.content]]</textarea><br />
 
+    <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span> </label>
+    <select name="template">
+        [[!+fi.templateOptions]]
+    </select>
+
+    <br />
+
     <label for="published"> Published: <span class="error">[[!+fi.error.published]]</span> </label>
     <input id="published" type="checkbox" name="published" value="1" [[!+fi.published:FormItIsChecked=`1`]] />
 

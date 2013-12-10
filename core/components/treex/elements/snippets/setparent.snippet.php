@@ -35,6 +35,37 @@ if ($parent != '') {
     }
 }
 
+if ($modx->user && $modx->user->id > 0) {
+    $userGroups = $modx->user->getUserGroups();
+
+    $c = $modx->newQuery('modAccessCategory');
+    $c->where(array(
+        'principal_class' => 'modUserGroup',
+        'principal:IN' => $userGroups,
+    ));
+
+    $categoriesAccess = $modx->getIterator('modAccessCategory', $c);
+
+    $categories = array();
+
+    foreach ($categoriesAccess as $category) {
+        $categories[] = $category->target;
+    }
+
+    $templates = $modx->getIterator('modTemplate', array('category:IN' => $categories));
+
+    $options = array();
+
+    /** @var modTemplate $template */
+    foreach ($templates as $template) {
+        $options[] = '<option value="' . $template->id . '" [[!+fi.template:FormItIsSelected=`' . $template->id . '`]]>' . $template->templatename . '</option>';
+    }
+
+    $hook->setValue('templateOptions', implode('', $options));
+
+}
+
+
 $hook->setValues(array('parent' => $parent));
 
 return true;
