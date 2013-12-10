@@ -12,7 +12,7 @@ $plugins[0]->fromArray(array(
     'id' => 0,
     'name' => 'TreeXInvalidateCache',
     'description' => 'Invalidate TreeX\'s cache',
-    'snippet' => getSnippetContent($sources['plugins'].'treexinvalidatecache.plugin.php'),
+    'plugincode' => getSnippetContent($sources['plugins'].'treexinvalidatecache.plugin.php'),
 ),'',true,true);
 
 $events = array();

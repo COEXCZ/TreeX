@@ -10,3 +10,8 @@ npm-debug.log
 
 config.core.php
 _build/build.config.php
+
+# Ignore folders in _packaged folder
+_packages/*.*
+!_packages/.gitignore
+!_packages/*.zip

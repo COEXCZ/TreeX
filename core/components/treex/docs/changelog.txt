@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+Calendar 1.1.1
+==============
+- Fixed build script for proper install plugin
+
 Calendar 1.1.0
 ==============
 - Added template select box to frontend create & update resource form
