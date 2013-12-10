@@ -42,8 +42,8 @@ switch($eventName) {
         $modx->cacheManager->delete($nodePathItems);
         break;
     case 'OnResourceSort':
-        foreach($nodes as $mode) {
-            $nodePath = $treeX->getNodePath($mode->id, $mode->context, false);
+        foreach($nodes as $node) {
+            $nodePath = $treeX->getNodePath($node['id'], $node['context'], false);
             $nodePathItems = explode('/', $nodePath);
             array_pop($nodePathItems);
 
