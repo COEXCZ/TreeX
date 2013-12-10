@@ -4,7 +4,7 @@ Calendar 1.1.0
 ==============
 - Added template select box to frontend create & update resource form
 - Fixed clearing cache on sort in manager resource's tree
-\
+
 Calendar 1.0.16
 ==============
 - Fixed restoring tree after reloading page
