@@ -9,6 +9,7 @@
  * PROPERTIES:
  *
  * &tpl                 string  Chunk name of Redactor's init script. Default initRedactorTpl
+ * &tabsModalTpl        string  Chunk name of Redactor's tabs extension. Default tabsModal
  * &fileUploadAction    string  Name of processor that will handle file upload. Default web/resource/fileupload
  * &imageUploadAction   string  Name of processor that will handle image upload. Default web/resource/imageupload
  *
@@ -29,6 +30,7 @@ $treeX = $modx->getService(
 );
 
 $tpl = $modx->getOption('tpl', $scriptProperties, 'initRedactorTpl');
+$tabsModalTpl = $modx->getOption('tabsModalTpl', $scriptProperties, 'tabsModal');
 $fileUploadAction = $modx->getOption('fileUploadAction', $scriptProperties, 'web/resource/fileupload');
 $imageUploadAction = $modx->getOption('imageUploadAction', $scriptProperties, 'web/resource/imageupload');
 $getImagesAction = $modx->getOption('getImagesAction', $scriptProperties, 'web/resource/getimages');
@@ -63,3 +65,4 @@ $phs = array(
 );
 
 $modx->regClientStartupHTMLBlock($modx->getChunk($tpl, $phs));
+$modx->regClientHTMLBlock($modx->getChunk($tabsModalTpl));
