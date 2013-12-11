@@ -1,27 +1,31 @@
 Changelog for TreeX.
 
-Calendar 1.1.1
+TreeX 1.2.0
+==============
+- Added Redactor's tabs plugin
+
+TreeX 1.1.1
 ==============
 - Fixed build script for proper install plugin
 
-Calendar 1.1.0
+TreeX 1.1.0
 ==============
 - Added template select box to frontend create & update resource form
 - Fixed clearing cache on sort in manager resource's tree
 
-Calendar 1.0.16
+TreeX 1.0.16
 ==============
 - Fixed restoring tree after reloading page
 
-Calendar 1.0.13
+TreeX 1.0.13
 ==============
 - injectMgr snippet - login/logout handling
 
-Calendar 1.0.12
+TreeX 1.0.12
 ==============
 - Cache support
 - ability to show tree to user logged via "login EXTRA"
 
-Calendar 1.0.11
+TreeX 1.0.11
 ==============
 - Initial release.

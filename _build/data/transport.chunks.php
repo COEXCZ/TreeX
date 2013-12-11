@@ -39,4 +39,12 @@ $chunks[4]->fromArray(array(
     'snippet' => getSnippetContent($sources['chunks'].'initredactortpl.chunk.tpl'),
 ),'',true,true);
 
+$chunks[5]= $modx->newObject('modChunk');
+$chunks[5]->fromArray(array(
+    'id' => 5,
+    'name' => 'tabsModal',
+    'description' => '',
+    'snippet' => getSnippetContent($sources['chunks'].'tabsmodal.chunk.tpl'),
+),'',true,true);
+
 return $chunks;
