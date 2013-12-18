@@ -1,5 +1,10 @@
 Changelog for TreeX.
 
+TreeX 1.2.1
+==============
+- Fixed bug with no tabs in redactor, now they are created
+- Fixed init of click handler on rename tab buttons
+
 TreeX 1.2.0
 ==============
 - Added Redactor's tabs plugin

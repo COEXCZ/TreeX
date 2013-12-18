@@ -3,7 +3,7 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.2.0"
+    ,"version": "1.2.1"
     ,"package":{
         "elements": {
             "chunks": [{
