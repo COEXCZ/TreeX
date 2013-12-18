@@ -35,11 +35,11 @@ RedactorPlugins.tabs = {
             });
 
             // Add all items to modal
-            $('#redactor_modal_inner section.tabs-content').html(tabListHtml);
+            var content = $('#redactor_modal_inner section.tabs-content').html(tabListHtml);
 
             // Init all buttons and sortable plugin
             _selfTabs.addButtonInit();
-            _selfTabs.buttonsInit();
+            _selfTabs.buttonsInit(content);
             _selfTabs.saveButtonInit();
             _selfTabs.sortableInit();
 
@@ -55,11 +55,12 @@ RedactorPlugins.tabs = {
         _selfTabs.buttonAddSeparatorBefore('tabs');
 
     },
-    buttonsInit: function() {
+    buttonsInit: function(item) {
         var _selfTabs = this;
+        item = $(item);
 
         // Init remove button
-        $('.js-tabs-remove').on('click', function(event) {
+        item.on('click', '.js-tabs-remove', function(event) {
             var _self = $(this);
 
             _self.parents('.js-tabs-item').addClass('removed');
@@ -68,7 +69,7 @@ RedactorPlugins.tabs = {
         });
 
         // Init edit button
-        $('.js-tabs-edit').on('click', function(event) {
+        item.on('click', '.js-tabs-edit', function(event) {
             var _self = $(this),
                 parent = _self.parents('.js-tabs-item'),
                 text = parent.find('.tabs-text');
@@ -176,7 +177,7 @@ RedactorPlugins.tabs = {
             $('#redactor_modal_inner section.tabs-content > div').append(item);
 
             // And init all the buttons for that item
-            _selfTabs.buttonsInit();
+            _selfTabs.buttonsInit(item);
             _selfTabs.sortableInit();
 
             event.preventDefault();
