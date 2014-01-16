@@ -26,10 +26,14 @@ $treeX = $modx->getService(
 $id = (isset($_GET['resource'])) ? intval($_GET['resource']) : 0;
 
 if ($id == 0) {
-    $hook->addError('title','Resource not found.');
+    $hook->addError('title', $modx->lexicon('treex.resource_nf'));
     return false;
 }
 
+if (!empty($_GET['error'])) {
+    $hook->addError('tvs', $_GET['error']);
+    //return false;
+}
 
 $processorResponse = $modx->runProcessor('resource/get', array('id' => $id));
 $response = $processorResponse->getResponse();
@@ -38,6 +42,16 @@ $response['object']['resource_id'] = $response['object']['id'];
 $response['object']['published'] = ($response['object']['published'] == true) ? 1 : 0;
 $response['object']['content'] = str_replace('[', '&#91;', $response['object']['content']);
 $response['object']['content'] = str_replace(']', '&#93;', $response['object']['content']);
+
+
+// get all TVs
+$resource = $modx->getObject('modResource', $response['object']['resource_id']);
+$templateVars = $resource->getMany('TemplateVars');
+foreach ($templateVars as $tvId => $templateVar) {
+    $response['object']['tv' . $templateVar->get('id')] = $templateVar->get('value');
+}
+// END get all TVs
+
 
 if ($modx->user && $modx->user->id > 0) {
     $userGroups = $modx->user->getUserGroups();

@@ -13,3 +13,4 @@ $_lang['treex.get_context_insteadof_resource'] = 'Instead of resource id was sen
 $_lang['treex.bad_image_format'] = 'Bad image format. Accepted formats are: png, jpg, jpeg, gif.';
 $_lang['treex.bad_file_format'] = 'Bad file format. Accepted formats are: pdf.';
 $_lang['treex.upload'] = 'Upload';
+$_lang['treex.tv_nf'] = 'Not defined (not saved) TVs: ';

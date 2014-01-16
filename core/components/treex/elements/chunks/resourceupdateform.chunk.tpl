@@ -29,16 +29,26 @@
     <label for="published"> Published: <span class="error">[[!+fi.error.published]]</span> </label>
     <input id="published" type="checkbox" name="published" value="1" [[!+fi.published:FormItIsChecked=`1`]] />
 
-<br />
+    <br />
 
     [[- TV's ]]
     <input type="hidden" id="tvs" name="tvs" value="1" />
 
     <label for="tv1"> Page Image: <span class="error">[[!+fi.error.tv1]]</span> </label>
-    <input id="tv1" type="file" name="tv1" value="[[!+fi.tv1]]" /> <br />
+    <input id="tv1" type="file" name="tv1" value="[[!+fi.tv1]]" /> 
+    [[!+fi.tv1:notempty=`
+        <img src="[[!+fi.tv1:phpthumbof=`w=120&h=120`]]" />
+        <label><input type="checkbox" name="delete[]" value="tv1" /> Delete</label>
+    `]]
+    <br />
 
     <label for="tv2"> Page Image 2: <span class="error">[[!+fi.error.tv2]]</span> </label>
-    <input id="tv2" type="file" name="tv2" value="[[!+fi.tv2]]" /> <br />
+    <input id="tv2" type="file" name="tv2" value="[[!+fi.tv2]]" /> 
+    [[!+fi.tv2:notempty=`
+        <img src="[[!+fi.tv2:phpthumbof=`w=120&h=120`]]" />
+        <label><input type="checkbox" name="delete[]" value="tv1" /> Delete</label>
+    `]]
+    <br /> 
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 </form>
