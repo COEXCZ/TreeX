@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.3.0
+==============
+- added feature to edit image/file template variables via frontend resource editor
+
 TreeX 1.2.1
 ==============
 - Fixed bug with no tabs in redactor, now they are created
