@@ -14,7 +14,7 @@
     <input type="hidden" id="context_key" name="context_key" value="[[!+fi.context_key]]" />
     
     <label for="pagetitle"> Title: <span class="error">[[!+fi.error.pagetitle]]</span> </label>
-    <input id="pagetitle" type="text" name="pagetitle" value="[[!+fi.pagetitle]]" /> <br />
+    <input id="pagetitle" type="text" name="pagetitle" value="[[!+fi.pagetitle]]" style="min-width:50%" /> <br />
 
     <label for="content"> Content: <span class="error">[[!+fi.error.content]]</span> </label>
     <textarea id="content" name="content" rows="7" cols="55">[[!+fi.content]]</textarea><br />
@@ -34,21 +34,33 @@
     [[- TV's ]]
     <input type="hidden" id="tvs" name="tvs" value="1" />
 
-    <label for="tv1"> Page Image: <span class="error">[[!+fi.error.tv1]]</span> </label>
-    <input id="tv1" type="file" name="tv1" value="[[!+fi.tv1]]" /> 
-    [[!+fi.tv1:notempty=`
-        <img src="[[!+fi.tv1:phpthumbof=`w=120&h=120`]]" />
-        <label><input type="checkbox" name="delete[]" value="tv1" /> Delete</label>
+    <label for="tv14"> Page Image 1: <span class="error">[[!+fi.error.tv14]]</span> </label>
+    <input id="tv14" type="file" name="tv14" value="[[!+fi.tv14]]" /> 
+    [[!+fi.tv14:notempty=`
+        <img src="[[!+fi.tv14:phpthumbof=`w=120&h=120`]]" />
+        <label><input type="checkbox" name="delete[]" value="tv14" /> Delete</label>
     `]]
     <br />
 
-    <label for="tv2"> Page Image 2: <span class="error">[[!+fi.error.tv2]]</span> </label>
-    <input id="tv2" type="file" name="tv2" value="[[!+fi.tv2]]" /> 
-    [[!+fi.tv2:notempty=`
-        <img src="[[!+fi.tv2:phpthumbof=`w=120&h=120`]]" />
-        <label><input type="checkbox" name="delete[]" value="tv1" /> Delete</label>
+    <label for="tv17"> Page Image 1 Caption: <span class="error">[[!+fi.error.tv17]]</span> </label>
+    <input id="tv17" type="text" name="tv17" value="[[!+fi.tv17]]" /> 
+    <br />
+
+    <label for="tv15"> Page Image 2: <span class="error">[[!+fi.error.tv15]]</span> </label>
+    <input id="tv15" type="file" name="tv15" value="[[!+fi.tv15]]" /> 
+    [[!+fi.tv15:notempty=`
+        <img src="[[!+fi.tv15:phpthumbof=`w=120&h=120`]]" />
+        <label><input type="checkbox" name="delete[]" value="tv15" /> Delete</label>
     `]]
     <br /> 
+
+    <label for="tv18"> Page Image 2 Caption: <span class="error">[[!+fi.error.tv18]]</span> </label>
+    <input id="tv18" type="text" name="tv18" value="[[!+fi.tv18]]" /> 
+    <br /> 
+
+    <label for="tv16"> Disqus Enabled: <span class="error">[[!+fi.error.tv16]]</span> </label>
+    <input id="tv16" type="checkbox" name="tv16" value="$disqus" /> 
+    <br />
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 </form>

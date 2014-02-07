@@ -54,11 +54,22 @@ foreach ($_FILES as $formVar => $file) {
 				$values[$formVar] = $templateVarsList[$formVar];
 			}
 		} else {
-			$missingTvs[] = $formVar;
+			//$missingTvs[] = $formVar;
 		}
 	}
 } 
 // END upload  TVimage('s')
+
+// check if all TVs exist
+foreach ($values as $formVar => $value) {
+    if (strpos($formVar,'tv') !== false) {
+		// only if TV is defined for resource
+		if (!array_key_exists ($formVar, $templateVarsList) && $formVar != 'tvs') {
+            $missingTvs[] = $formVar;
+        }
+    }
+}
+
 
 // unset variables marked to delete
 foreach ($_POST['delete'] as $value) {
