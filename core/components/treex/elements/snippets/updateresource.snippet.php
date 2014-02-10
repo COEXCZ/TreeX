@@ -22,14 +22,22 @@ $treeX = $modx->getService(
     )
 );
 
+// get values
 $values = $hook->getValues();
 
 $values['id'] = $values['resource_id'];
 $values['published'] = isset($values['published']) ? 1 : 0;
 $values['content'] = $_POST['content'];
 
-// get all TVs
+// update template first
 $resource = $modx->getObject('modResource', $values['id']);
+$processorResponse = $modx->runProcessor('resource/update', array('id' => $values['resource_id'], 'template' => $values['template']));
+$response = $processorResponse->getResponse();
+
+// get resource (script loads resource again because there was a problem with resource TVs listing by new template set above (object returned old template data without it))
+$resource = $modx->getObject('modResource', $values['id']);
+
+// get all TVs
 $templateVars = $resource->getMany('TemplateVars');
 $templateVarsList = array();
 foreach ($templateVars as $tvId => $templateVar) {
@@ -37,6 +45,7 @@ foreach ($templateVars as $tvId => $templateVar) {
 }
 // END get all TVs
 
+// prepare to find TVs defined in form, but not defined for resource template
 $missingTvs = array();
 
 // upload TV image('s')

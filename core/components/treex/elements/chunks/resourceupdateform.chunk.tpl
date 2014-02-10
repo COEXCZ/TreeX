@@ -35,7 +35,7 @@
     <input type="hidden" id="tvs" name="tvs" value="1" />
 
     <label for="tv14"> Page Image 1: <span class="error">[[!+fi.error.tv14]]</span> </label>
-    <input id="tv14" type="file" name="tv14" value="[[!+fi.tv14]]" /> 
+    <input id="tv14" type="file" name="tv14" /> 
     [[!+fi.tv14:notempty=`
         <img src="[[!+fi.tv14:phpthumbof=`w=120&h=120`]]" />
         <label><input type="checkbox" name="delete[]" value="tv14" /> Delete</label>
@@ -47,7 +47,7 @@
     <br />
 
     <label for="tv15"> Page Image 2: <span class="error">[[!+fi.error.tv15]]</span> </label>
-    <input id="tv15" type="file" name="tv15" value="[[!+fi.tv15]]" /> 
+    <input id="tv15" type="file" name="tv15" /> 
     [[!+fi.tv15:notempty=`
         <img src="[[!+fi.tv15:phpthumbof=`w=120&h=120`]]" />
         <label><input type="checkbox" name="delete[]" value="tv15" /> Delete</label>
