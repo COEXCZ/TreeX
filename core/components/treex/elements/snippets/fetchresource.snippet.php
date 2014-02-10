@@ -23,7 +23,13 @@ $treeX = $modx->getService(
     )
 );
 
-$id = (isset($_GET['resource'])) ? intval($_GET['resource']) : 0;
+if (isset($_POST['resource_id'])) {
+    $id = intval($_POST['resource_id']); 
+} elseif (isset($_GET['resource'])) {
+    $id = intval($_GET['resource']);
+}  else {
+    $id = 0;
+}
 
 if ($id == 0) {
     $hook->addError('title', $modx->lexicon('treex.resource_nf'));
@@ -82,10 +88,10 @@ if ($modx->user && $modx->user->id > 0) {
     $response['object']['templateOptions'] = implode('', $options);
 
 }
-
+//var_dump($response['object']); die();
 
 unset($response['object']['id']);
-
 $hook->setValues($response['object']);
+$modx->setPlaceholder('templateOptionsPlaceholder', $response['object']['templateOptions']);
 
 return true;

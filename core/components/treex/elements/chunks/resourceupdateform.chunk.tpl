@@ -21,7 +21,8 @@
 
     <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span> </label>
     <select name="template">
-        [[!+fi.templateOptions]]
+        [[-[[!+fi.templateOptions]]]]
+        [[+templateOptionsPlaceholder]]
     </select>
 
     <br />

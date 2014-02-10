@@ -12,6 +12,8 @@
  *
  */
 
+//global $hook;
+
 $corePath = $modx->getOption('treex.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/treex/');
 /** @var TreeX $treeX */
 $treeX = $modx->getService(
@@ -61,11 +63,13 @@ if ($modx->user && $modx->user->id > 0) {
         $options[] = '<option value="' . $template->id . '" [[!+fi.template:FormItIsSelected=`' . $template->id . '`]]>' . $template->templatename . '</option>';
     }
 
-    $hook->setValue('templateOptions', implode('', $options));
-
+    //$hook->setValue('templateOptions', implode('', $options));
+    $modx->setPlaceholder('templateOptionsPlaceholder', implode('', $options));
 }
 
 
 $hook->setValues(array('parent' => $parent));
+
+//print_r($hook->getValue('templateOptions')); die();
 
 return true;

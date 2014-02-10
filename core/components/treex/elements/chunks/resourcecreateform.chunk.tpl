@@ -20,8 +20,11 @@
 
     <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span> </label>
     <select name="template">
-        [[!+fi.templateOptions]]
+        [[-[[!+fi.templateOptions]]]]
+        [[+templateOptionsPlaceholder]]
     </select>
+
+    
 
     <br />
 
@@ -29,4 +32,5 @@
     <input id="published" type="checkbox" name="published" value="1" [[!+fi.published:FormItIsChecked=`1`]] />
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
+    
 </form>
