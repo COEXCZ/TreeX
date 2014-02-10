@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.3.5
+==============
+- front editor - prehooks - form template options changed from $hooks into placeholder to persist during validation fails
+
 TreeX 1.3.2
 ==============
 - solved need to save resource first after template change
