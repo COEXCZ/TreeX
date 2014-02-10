@@ -32,12 +32,15 @@ $values['content'] = $_POST['content'];
 unset($values['resource_id']);
 
 // update template first
-$processorResponse = $modx->runProcessor('resource/update', array('id' => $values['id'], 'template' => $values['template'], 'context_key' => $values['context_key']));
+//$processorResponse = $modx->runProcessor('resource/update', array('id' => $values['id'], 'template' => $values['template'], 'context_key' => $values['context_key']));
+$resource = $modx->getObject('modResource', $values['id']);
+$resource->set('template', $values['template']);
+$resource->save();
 
 // get resource
-$resource = $modx->getObject('modResource', $values['id']);
 
 // get all TVs
+$resource = $modx->getObject('modResource', $values['id']);
 $templateVars = $resource->getMany('TemplateVars');
 $templateVarsList = array();
 foreach ($templateVars as $tvId => $templateVar) {
@@ -56,7 +59,7 @@ foreach ($_FILES as $formVar => $file) {
 		if (array_key_exists ($formVar, $templateVarsList)) {
 			// only if uploaded new file
 			if (!empty($file['name']) && !empty($file['tmp_name'])) {
-				$processorResponse = $modx->runProcessor('web/resource/tvimageupload', array('resource' => $values['resource_id'], 'file' => $formVar), array('processors_path' => $modx->getOption('treex.core_path', null, $modx->getOption('core_path') . 'components/treex/') . 'processors/')); 
+				$processorResponse = $modx->runProcessor('web/resource/tvimageupload', array('resource' => $values['id'], 'file' => $formVar), array('processors_path' => $modx->getOption('treex.core_path', null, $modx->getOption('core_path') . 'components/treex/') . 'processors/')); 
 				$response = json_decode($processorResponse->response, true);
 				$values[$formVar] = $response[0]['filelink'];
 			} else {
