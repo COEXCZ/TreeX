@@ -47,12 +47,13 @@ class TreeXGetNodesProcessor extends modProcessor {
         $this->getRootNode();
 
         $nodePath = $this->modx->treex->getNodePath($this->startNode, $this->contextKey);
-        if($nodePath !== false) {
+        // receiving node from cache comented out, because it caused not relevant data in front resources tree
+        /*if($nodePath !== false) {
             $fromCache = $this->modx->cacheManager->get($nodePath);
             if ($fromCache) {
                 return $fromCache;
             }
-        }
+        }*/
         $this->prepare();
 
         if (empty($this->contextKey) || $this->contextKey == 'root') {
