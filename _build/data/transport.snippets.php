@@ -47,13 +47,4 @@ $snippets[4]->fromArray(array(
      'snippet' => getSnippetContent($sources['snippets'].'initredactor.snippet.php'),
 ),'',true,true);
 
-$snippets[5]= $modx->newObject('modSnippet');
-$snippets[5]->fromArray(array(
-     'id' => 5,
-     'name' => 'injectMgr',
-     'description' => 'If user is manager, then inject mgr context (when you log in via Login EXTRA)',
-     'snippet' => getSnippetContent($sources['snippets'].'injectmgr.snippet.php'),
-),'',true,true);
-
-
 return $snippets;

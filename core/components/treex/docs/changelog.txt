@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.3.6
+==============
+- added plugin for injecting mgr context after web login
+
 TreeX 1.3.5
 ==============
 - front editor - prehooks - form template options changed from $hooks into placeholder to persist during validation fails
