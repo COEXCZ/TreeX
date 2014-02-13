@@ -1,7 +1,7 @@
 <?php
 /**
  * Add plugins to build
- * 
+ *
  * @package treex
  * @subpackage build
  */
@@ -67,7 +67,7 @@ $plugins[1]->fromArray(array(
     'id' => 0,
     'name' => 'TreeXInjectMgr',
     'description' => 'Inject mgr context on web login',
-    'plugincode' => getSnippetContent($sources['plugins'].'treexinjectmgr.php'),
+    'plugincode' => getSnippetContent($sources['plugins'].'treexinjectmgr.plugin.php'),
 ),'',true,true);
 
 
