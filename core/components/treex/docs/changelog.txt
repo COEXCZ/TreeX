@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.3.7
+==============
+- Tabs modified to using bootstrap syntax
+
 TreeX 1.3.6
 ==============
 - added plugin for injecting mgr context after web login
