@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.3.9
+==============
+- Fix of new document bug with html in Redactor
+
 TreeX 1.3.8
 ==============
 - Updated for clear cache after update of resource
