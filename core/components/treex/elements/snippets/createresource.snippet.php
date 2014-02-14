@@ -25,6 +25,7 @@ $treeX = $modx->getService(
 $values = $hook->getValues();
 
 $values['published'] = isset($values['published']) ? 1 : 0;
+$values['content'] = $_POST['content'];
 
 $processorResponse = $modx->runProcessor('resource/create', $values);
 $response = $processorResponse->getResponse();
