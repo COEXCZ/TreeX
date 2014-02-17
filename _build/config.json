@@ -3,7 +3,7 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.3.9"
+    ,"version": "1.4.0"
     ,"package":{
         "elements": {
             "chunks": [{
@@ -27,6 +27,8 @@
                 "name": "initRedactor"
             },{
                 "name": "setParent"
+            },{
+                "name": "TreeXCheckPolicy"
             }]
             ,"plugins": [{
                 "name": "TreeXInvalidateCache"

@@ -47,4 +47,12 @@ $snippets[4]->fromArray(array(
      'snippet' => getSnippetContent($sources['snippets'].'initredactor.snippet.php'),
 ),'',true,true);
 
+$snippets[5]= $modx->newObject('modSnippet');
+$snippets[5]->fromArray(array(
+     'id' => 5,
+     'name' => 'TreeXCheckPolicy',
+     'description' => 'Redactor\'s init script',
+     'snippet' => getSnippetContent($sources['snippets'].'treexcheckpolicy.snippet.php'),
+),'',true,true);
+
 return $snippets;
