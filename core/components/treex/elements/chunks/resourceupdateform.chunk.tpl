@@ -1,3 +1,5 @@
+[[!TreeXCheckPolicy:is=`1`:then=`
+
 [[!initRedactor]]
 
 [[!FormIt?
@@ -68,3 +70,5 @@
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 </form>
+
+`:else=`<div>You have no permissions to edit this resource.</div>`]]
