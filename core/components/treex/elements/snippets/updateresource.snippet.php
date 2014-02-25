@@ -28,6 +28,7 @@ $values = $hook->getValues();
 $values['id'] = intval($values['resource_id']);
 $values['published'] = isset($values['published']) ? 1 : 0;
 $values['content'] = $_POST['content'];
+$values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
 
 unset($values['resource_id']);
 
