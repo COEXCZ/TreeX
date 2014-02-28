@@ -5,7 +5,8 @@
     var treexSettings = {
         create_form_url: '[[++site_url]][[~[[++treex.create_form_id]]]]',
         update_form_url: '[[++site_url]][[~[[++treex.update_form_id]]]]',
-        translate_newdocument: '[[%document_new? &namespace=`modx` &topic=`resource`]]'
+        translate_newdocument: '[[%document_new? &namespace=`modx` &topic=`resource`]]',
+        translate_deletedocument: '[[%resource_delete? &namespace=`modx` &topic=`resource`]]'
     };
 </script>
 

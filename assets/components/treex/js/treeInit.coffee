@@ -1,4 +1,4 @@
-﻿$ ->
+$ ->
 
   # if there are "seo" urls, thed use "?"" sign in url, otherwise use "&" sign because there is "?" sign placed
   if treexSettings.create_form_url.indexOf('?') != -1
@@ -45,6 +45,10 @@
         
         if nodeCls.indexOf('pnew_modDocument') != -1
           contextmenuItem = $('<li><a href="' + treexSettings.create_form_url + treexSettings.urls_params_connector + 'parent=' + node.id + '">' + treexSettings.translate_newdocument + '</a></li>')
+          contextmenu.append(contextmenuItem)
+
+        if nodeCls.indexOf('pdelete') != -1
+          contextmenuItem = $('<li><a href="' + treexSettings.delete_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk + '">' + treexSettings.translate_deletedocument + '</a></li>')
           contextmenu.append(contextmenuItem)
 
 
