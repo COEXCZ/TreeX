@@ -1242,7 +1242,8 @@ limitations under the License.
           url: data_url
         };
         data = {
-          action: 'web/resource/getnodes'
+          action: 'web/resource/getnodes',
+          ctx: 'editor'
         };
         if (node && node.id) {
           data['node'] = node.id;

@@ -19,9 +19,9 @@ RedactorPlugins.tabs = {
         var _selfTabs = this; // Whole redactor variable
 
         var callback = function() {
-            var editorHTML = $('.redactor_editor #tabs');
+            var editorHTML = $('.redactor_editor .nav-tabs');
 
-            var tabList = editorHTML.find('ul').find('li');
+            var tabList = editorHTML.find('li');
             var tabListHtml = $('<div />');
 
             // Find all tabs in redactor editor
@@ -104,13 +104,13 @@ RedactorPlugins.tabs = {
         var _selfTabs = this;
 
         $('.js-tabs-save').on('click', function(event) {
-            var tabs = $('<ul />');
+            var tabs = $('<ul class="nav nav-tabs" />');
 
             // If there are no items then remove the tabs div
             if($('.js-tabs-item').length > 0) {
                 // Check if the tabs div is created
-                if($('.redactor_editor #tabs').length === 0) {
-                    $('.redactor_editor').append($('<div id="tabs"><ul></ul></div>'));
+                if($('.redactor_editor .nav-tabs').length === 0) {
+                    $('.redactor_editor').append($('<ul class="nav nav-tabs"></ul>'));
                 }
 
                 // Iterate all items in modal window
@@ -121,7 +121,7 @@ RedactorPlugins.tabs = {
                     // Remove items if there are no longer in the list
                     if(!_self.hasClass('removed')) {
                         // Create list item
-                        tabs.append('<li><a href="' + _self.data('href') + '">' + _self.find('.tabs-text').text() + '</a></li>');
+                        tabs.append('<li><a href="' + _self.data('href') + '" data-toggle="tab">' + _self.find('.tabs-text').text() + '</a></li>');
 
                         // Does it already exist in editor if not then create new div with default text
                         if($('div' + _self.data('href')).length === 0) {
@@ -130,8 +130,14 @@ RedactorPlugins.tabs = {
                             if (id.substring(0, 1) == '#') {
                               id = id.substring(1);
                             }
-                            var container = div.attr('id', id).text('Add text');
-                            $('.redactor_editor #tabs').append(container);
+                            var container = div.addClass('tab-pane fade').attr('id', id).text('Add text');
+
+                            // Check if the tabs div is created
+                            if($('.redactor_editor .tab-content').length === 0) {
+                                $('.redactor_editor').append($('<div class="tab-content"></div>'));
+                            }
+
+                            $('.redactor_editor .tab-content').append(container);
                         }
                     } else {
                         if($('div' + _self.data('href')).length !== 0) {
@@ -142,14 +148,17 @@ RedactorPlugins.tabs = {
                 });
 
                 // Replace all tabs
-                $('.redactor_editor #tabs>ul').replaceWith(tabs);
+                $('.redactor_editor ul.nav-tabs').replaceWith(tabs);
+
+                // Add active toggle to first item
+                $('.redactor_editor ul.nav-tabs>li:first-child').addClass('active');
+                $('.redactor_editor .tab-content>.tab-pane:first-child').addClass('active in');
             } else {
-                $('.redactor_editor #tabs').remove();
+                $('.redactor_editor .nav-tabs').remove();
             }
 
             // Sync editor with textarea
             _selfTabs.sync();
-            initTabs();
 
             // Close the modal window
             _selfTabs.modalClose();

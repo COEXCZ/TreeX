@@ -3,7 +3,7 @@
     ,"lowCaseName": "treex"
     ,"description": "TreeX for MODX"
     ,"author": "COEX"
-    ,"version": "1.3.0"
+    ,"version": "1.4.1"
     ,"package":{
         "elements": {
             "chunks": [{
@@ -28,11 +28,14 @@
             },{
                 "name": "setParent"
             },{
-                "name": "injectMgr"
+                "name": "TreeXCheckPolicy"
             }]
             ,"plugins": [{
                 "name": "TreeXInvalidateCache"
                 ,"events": ["OnDocFormSave", "OnDocFormDelete", "OnResourceUndelete", "OnResourceSort", "OnDocPublished", "OnDocUnPublished"]
+            },{
+                "name": "TreeXInjectMgr"
+                ,"events": ["OnWebLogin", "OnWebLogout"]
             }]
         }
         ,"systemSettings": [{

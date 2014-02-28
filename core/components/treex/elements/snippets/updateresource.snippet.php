@@ -28,6 +28,7 @@ $values = $hook->getValues();
 $values['id'] = intval($values['resource_id']);
 $values['published'] = isset($values['published']) ? 1 : 0;
 $values['content'] = $_POST['content'];
+$values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
 
 unset($values['resource_id']);
 
@@ -59,7 +60,7 @@ foreach ($_FILES as $formVar => $file) {
 		if (array_key_exists ($formVar, $templateVarsList)) {
 			// only if uploaded new file
 			if (!empty($file['name']) && !empty($file['tmp_name'])) {
-				$processorResponse = $modx->runProcessor('web/resource/tvimageupload', array('resource' => $values['id'], 'file' => $formVar), array('processors_path' => $modx->getOption('treex.core_path', null, $modx->getOption('core_path') . 'components/treex/') . 'processors/')); 
+				$processorResponse = $modx->runProcessor('web/resource/tvimageupload', array('resource' => $values['id'], 'file' => $formVar), array('processors_path' => $modx->getOption('treex.core_path', null, $modx->getOption('core_path') . 'components/treex/') . 'processors/'));
 				$response = json_decode($processorResponse->response, true);
 				$values[$formVar] = $response[0]['filelink'];
 			} else {
@@ -69,7 +70,7 @@ foreach ($_FILES as $formVar => $file) {
 			//$missingTvs[] = $formVar;
 		}
 	}
-} 
+}
 // END upload  TVimage('s')
 
 // check if all TVs exist
@@ -89,6 +90,9 @@ foreach ($_POST['delete'] as $value) {
 }
 // END unset variables marked to delete
 
+// Clear cache after update
+$values['syncsite'] = true;
+
 $processorResponse = $modx->runProcessor('resource/update', $values);
 $response = $processorResponse->getResponse();
 
@@ -103,4 +107,3 @@ if (count($missingTvs) == 0) {
 	$modx->sendRedirect($modx->makeUrl($modx->resource->id, '', array('resource' => $response['object']['id'], 'error' => $modx->lexicon('treex.tv_nf') . implode(', ', $missingTvs))));
 	return true;
 }
-

@@ -1,3 +1,5 @@
+[[!TreeXCheckPolicy:is=`1`:then=`
+
 [[!initRedactor]]
 
 [[!FormIt?
@@ -18,6 +20,9 @@
 
     <label for="content"> Content: <span class="error">[[!+fi.error.content]]</span> </label>
     <textarea id="content" name="content" rows="7" cols="55">[[!+fi.content]]</textarea><br />
+
+    <label for="alias"> Alias: <span class="error">[[!+fi.error.alias]]</span> </label>
+    <input id="alias" type="text" name="alias" value="[[!+fi.alias]]" /> <br />
 
     <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span> </label>
     <select name="template">
@@ -65,3 +70,5 @@
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 </form>
+
+`:else=`<div>You have no permissions to edit this resource.</div>`]]

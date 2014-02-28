@@ -8,10 +8,8 @@ Frontend Tree of MODX resources
 
 
 Enable users loging via Login EXTRA:
-Place "injectMgr" snippet after "Login" snippet.
 
 [[!Login]]
-[[!injectMgr]]
 
 
 How to show only resources assigned via MODX ACL management:
