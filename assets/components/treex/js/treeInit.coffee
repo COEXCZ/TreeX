@@ -6,6 +6,16 @@ $ ->
   else
     treexSettings.urls_params_connector = '?'
 
+  # do redirect with simple POST data function
+  doPost = (postUrl, postParam, postData) ->
+    form = $("<form action=\"" + postUrl + "\" method=\"post\" style=\"display: none;\">" + "<input type=\"hidden\" name=\"" + postParam + "\" value=\"" + postData + "\" />" + "</form>")
+    $('body').append form
+    $(form).submit()
+    return
+
+  #remove tags from string
+  cleanString = (string) ->
+    string.replace(/<\/?[^>]+(>|$)/g, " ");
 
   # initialize tree engine
   tree = $(".js-tree")
@@ -48,9 +58,17 @@ $ ->
           contextmenu.append(contextmenuItem)
 
         if nodeCls.indexOf('pdelete') != -1
-          contextmenuItem = $('<li><a href="' + treexSettings.delete_form_url + treexSettings.urls_params_connector + 'resource=' + node.pk + '">' + treexSettings.translate_deletedocument + '</a></li>')
+          contextmenuItem = $('<li><a href="' + treexSettings.delete_form_url + '" class="js-treex-pdelete" data-resource="' + node.pk + '">' + treexSettings.translate_deletedocument + '</a></li>')
           contextmenu.append(contextmenuItem)
-
+          
+          # resource delete action
+          deleteButton = contextmenuItem.find('.js-treex-pdelete')
+          $(deleteButton).on 'click', ->
+            target = $(this).attr('href')
+            resource = $(this).data('resource')
+            if confirm cleanString treexSettings.translate_deletedocument_confirm
+              doPost target, 'resource', resource 
+            false               
 
       contextmenu.bind('mouseleave', ->
         $(this).remove()
@@ -117,4 +135,3 @@ $ ->
     else
       loadUrl node
   
- 
