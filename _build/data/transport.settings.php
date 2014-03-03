@@ -61,5 +61,14 @@ $settings['treex.upload_files_path_url']->fromArray(array(
     'area' => 'upload',
 ),'',true,true);
 
+$settings['treex.delete_form_id']= $modx->newObject('modSystemSetting');
+$settings['treex.delete_form_id']->fromArray(array(
+    'key' => 'treex.delete_form_id',
+    'value' => '12122',
+    'xtype' => 'textfield',
+    'namespace' => 'treex',
+    'area' => '',
+),'',true,true);
+
 
 return $settings;

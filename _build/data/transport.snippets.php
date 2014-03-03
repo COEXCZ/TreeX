@@ -55,4 +55,12 @@ $snippets[5]->fromArray(array(
      'snippet' => getSnippetContent($sources['snippets'].'treexcheckpolicy.snippet.php'),
 ),'',true,true);
 
+$snippets[6]= $modx->newObject('modSnippet');
+$snippets[6]->fromArray(array(
+     'id' => 6,
+     'name' => 'deleteResource',
+     'description' => 'Deletes a MODX resource in front-end manager',
+     'snippet' => getSnippetContent($sources['snippets'].'deleteresource.snippet.php'),
+),'',true,true);
+
 return $snippets;
