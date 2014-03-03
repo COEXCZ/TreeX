@@ -77,7 +77,7 @@ $ ->
 
       #prepare url data
       data_url = tree.dataUrl or tree.data('url')
-      data = action: 'web/resource/sort', node: nodeId, position: position, target:targetId, prev: parentPrevId
+      data = action: 'web/resource/sort', node: nodeId, position: position, target:targetId, prev: parentPrevId, ctx: 'editor'
       
       # do request
       $.ajax(
