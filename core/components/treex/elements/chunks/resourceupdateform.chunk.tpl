@@ -30,7 +30,7 @@
             </td>
             <td>
                 <label for="tv16" class="checkbox"> comments enabled<span class="error">[[!+fi.error.tv16]]</span>
-                    <input id="tv16" type="checkbox" name="tv16" value="$disqus" />
+                    <input id="tv16" type="checkbox" name="tv16" value="1" [[!+fi.tv16:FormItIsChecked=`1`]] />
                 </label>
             </td>
         </tr>
