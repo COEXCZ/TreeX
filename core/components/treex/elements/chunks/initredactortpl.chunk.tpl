@@ -1,7 +1,7 @@
 <script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/tabs.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        var wysiwyg = $('textarea').redactor({
+        var wysiwyg = $('textarea.rd').redactor({
             plugins: ['tabs'],
             paragraphy: false,
             convertDivs: false,
