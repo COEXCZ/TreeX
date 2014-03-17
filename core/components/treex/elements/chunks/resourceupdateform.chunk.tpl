@@ -36,6 +36,16 @@
         </tr>
         <tr>
             <td>
+                <label for="hidemenu" class="checkbox">Hide from menu<span class="error">[[!+fi.error.hidemenu]]</span>
+                    <input id="hidemenu" type="checkbox" name="hidemenu" value="1" [[!+fi.hidemenu:FormItIsChecked=`1`]] />
+                </label>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label for="alias"><span class="error">[[!+fi.error.alias]]</span> </label>
                 <div class="input-prepend">
                     <span class="add-on">Alias:</span>
@@ -43,11 +53,6 @@
                 </div>
             </td>
             <td>
-                <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span> </label>
-                <select name="template">
-                    [[-[[!+fi.templateOptions]]]]
-                    [[+templateOptionsPlaceholder]]
-                </select>
             </td>
         </tr>
         <tr>

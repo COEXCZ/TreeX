@@ -16,7 +16,7 @@
     <input id="pagetitle" type="text" name="pagetitle" value="[[!+fi.pagetitle]]" /> <br />
 
     <label for="content"> Content: <span class="error">[[!+fi.error.content]]</span> </label>
-    <textarea id="content" name="content" class="rd" rows="7" cols="55">[[!+fi.content]]</textarea><br />
+    <textarea id="content" class="rd" name="content" rows="7" cols="55">[[!+fi.content]]</textarea><br />
 
     <label for="alias"> Alias: <span class="error">[[!+fi.error.alias]]</span> </label>
     <input id="alias" type="text" name="alias" value="[[!+fi.alias]]" /> <br />
@@ -33,6 +33,10 @@
 
     <label for="published"> Published: <span class="error">[[!+fi.error.published]]</span> </label>
     <input id="published" type="checkbox" name="published" value="1" [[!+fi.published:FormItIsChecked=`1`]] />
+
+    <label for="hidemenu"> Hide from menu: <span class="error">[[!+fi.error.hidemenu]]</span> </label>
+    <input id="hidemenu" type="checkbox" name="hidemenu" value="1" [[!+fi.hidemenu:FormItIsChecked=`1`]] />
+
 
     <div class="form-buttons"><input type="submit" value="Save resource" /></div>
 
