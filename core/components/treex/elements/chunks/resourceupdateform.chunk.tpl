@@ -53,6 +53,11 @@
                 </div>
             </td>
             <td>
+                <label for="template"> Template: <span class="error">[[!+fi.error.template]]</span>      </label>
+                <select name="template">
+                    [[-[[!+fi.templateOptions]]]]
+                    [[+templateOptionsPlaceholder]]
+                </select>
             </td>
         </tr>
         <tr>
