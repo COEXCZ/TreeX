@@ -1,7 +1,8 @@
 <script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/tabs.js"></script>
+<script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/undo.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        var wysiwyg = $('textarea').redactor({
+        var wysiwyg = $('textarea.rd').redactor({
             plugins: ['tabs'],
             paragraphy: false,
             convertDivs: false,
@@ -55,5 +56,12 @@
         padding-left: 30px;
         line-height: 18px;
         display: inline-block;
+    }
+    .redactor_toolbar li a.redactor_btn_undo {
+        background-image: url([[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]css/i/fe-undo.png);
+    }
+
+    .redactor_toolbar li a.redactor_btn_redo {
+        background-image: url([[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]css/i/fe-redo.png);
     }
 </style>
