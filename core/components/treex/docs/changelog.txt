@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.3
+==============
+- Redactor Wysiwyg -> edit area -> tabs nav li - "resize corners" hidden if you edit in Internet Explorer
+
 TreeX 1.4.2
 ==============
 - Added resource delete action in context menu and resource delete snippet 
