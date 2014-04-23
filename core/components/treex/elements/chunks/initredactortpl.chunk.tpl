@@ -20,7 +20,12 @@
             },
             fileUploadErrorCallback: function(json){
                 alert(json.msg);
-            }
+            },
+            initCallback: function(){
+        		var code = $('<div/>').html(this.get());
+        		$(code).find('.nav>li, .nav>li>a').attr('unselectable', 'on');           		
+        		this.set($(code).html());
+            }            
         });
     });
 </script>

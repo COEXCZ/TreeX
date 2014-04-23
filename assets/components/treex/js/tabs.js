@@ -121,7 +121,7 @@ RedactorPlugins.tabs = {
                     // Remove items if there are no longer in the list
                     if(!_self.hasClass('removed')) {
                         // Create list item
-                        tabs.append('<li><a href="' + _self.data('href') + '" data-toggle="tab">' + _self.find('.tabs-text').text() + '</a></li>');
+                        tabs.append('<li unselectable="on"><a href="' + _self.data('href') + '" data-toggle="tab" unselectable="on">' + _self.find('.tabs-text').text() + '</a></li>');
 
                         // Does it already exist in editor if not then create new div with default text
                         if($('div' + _self.data('href')).length === 0) {
