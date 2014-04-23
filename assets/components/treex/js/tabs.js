@@ -121,7 +121,17 @@ RedactorPlugins.tabs = {
                     // Remove items if there are no longer in the list
                     if(!_self.hasClass('removed')) {
                         // Create list item
-                        tabs.append('<li unselectable="on"><a href="' + _self.data('href') + '" data-toggle="tab" unselectable="on">' + _self.find('.tabs-text').text() + '</a></li>');
+                        
+                        // get tabs titles
+                        var tabTitle = _self.find('.tabs-text').text();
+                        var tabTitleFromInput = _self.find('.js-input-title').val();
+                        
+                        // if there is not saved tab title value then use this value othervise use saved tab title
+                        if (typeof(tabTitleFromInput) != "undefined") {
+                            tabTitle = tabTitleFromInput;
+                        }
+                        
+                        tabs.append('<li unselectable="on"><a href="' + _self.data('href') + '" data-toggle="tab" unselectable="on">' + tabTitle + '</a></li>');
 
                         // Does it already exist in editor if not then create new div with default text
                         if($('div' + _self.data('href')).length === 0) {
