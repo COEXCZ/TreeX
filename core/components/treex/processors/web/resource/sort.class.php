@@ -134,6 +134,13 @@ class TreeXSortProcessor extends modProcessor {
      */
     public function moveAfter() {
         if ($this->target instanceof modResource) {
+            if ($this->target->parent == 0) {
+                $allow = $this->checkNewDocumentInRoot();
+                if ($allow !== true) {
+                    return $allow;
+                }
+            }
+
             $c = $this->modx->newQuery('modResource');
             $c->where(array(
                 'context_key' => $this->target->context_key,
