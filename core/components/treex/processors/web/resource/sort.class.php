@@ -68,6 +68,13 @@ class TreeXSortProcessor extends modProcessor {
         $target = explode('_', $target);
         $prev = explode('_', $prev);
 
+        if ($target[1] == 0) {
+            $allow = $this->checkNewDocumentInRoot();
+            if ($allow !== true) {
+                return $allow;
+            }
+        }
+
         $this->node = $this->modx->getObject('modResource', $node[1]);
         $this->target = ($target[1] == 0) ? $target[0] : $this->modx->getObject('modResource', $target[1]);
         $this->prev = ($prev[1] == 0) ? $prev[0] : $this->modx->getObject('modResource', $prev[1]);
@@ -186,5 +193,14 @@ class TreeXSortProcessor extends modProcessor {
         $nodePathItems = substr($nodePathItems, 0, -4);
         $this->modx->cacheManager->delete($nodePathItems);
     }
+
+    public function checkNewDocumentInRoot() {
+        if (!$this->modx->hasPermission('new_document_in_root')) {
+            return $this->modx->lexicon('resource_add_children_access_denied');
+        }
+
+        return true;
+    }
+
 }
 return 'TreeXSortProcessor';
