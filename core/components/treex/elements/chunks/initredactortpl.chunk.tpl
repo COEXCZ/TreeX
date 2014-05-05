@@ -15,6 +15,7 @@
             uploadFields: [[+params]],
             searchImages: false,
             observeLinks: false,
+            buttons: ['undo', 'html', '|', 'formatting', '|', 'bold', 'italic', 'underline', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', 'alignment', '|', 'horizontalrule'],
             imageUploadErrorCallback: function(json){
                 alert(json.msg);
             },
