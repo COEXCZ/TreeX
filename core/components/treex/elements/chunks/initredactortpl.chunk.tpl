@@ -3,7 +3,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var wysiwyg = $('textarea.rd').redactor({
-            plugins: ['tabs'],
+            plugins: ['undo', 'tabs'],
             paragraphy: false,
             convertDivs: false,
             imageUpload: '[[+connectorUrl]]?action=[[+imageUploadAction]]',
@@ -15,7 +15,7 @@
             uploadFields: [[+params]],
             searchImages: false,
             observeLinks: false,
-            buttons: ['undo', 'html', '|', 'formatting', '|', 'bold', 'italic', 'underline', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', 'alignment', '|', 'horizontalrule'],
+            buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'underline', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', 'alignment', '|', 'horizontalrule', '|'],
             imageUploadErrorCallback: function(json){
                 alert(json.msg);
             },
