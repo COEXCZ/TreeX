@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.4
+==============
+- Redactor Wysiwyg - added buttons horizontal rule, underline, undo, redo
+
 TreeX 1.4.3
 ==============
 - Redactor Wysiwyg -> edit area -> tabs nav li - "resize corners" hidden if you edit in Internet Explorer
