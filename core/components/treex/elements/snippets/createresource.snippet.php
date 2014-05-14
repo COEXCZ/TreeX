@@ -27,8 +27,17 @@ $values = $hook->getValues();
 $values['published'] = isset($values['published']) ? 1 : 0;
 $values['hidemenu'] = isset($values['hidemenu']) ? 1 : 0;
 $values['content'] = $_POST['content'];
-$values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
 $values['syncsite'] = 1;
+
+
+// clean and prepare content data
+if (isset($values['class_key']) && $values['class_key'] == 'modWebLink') {
+    $values['content'] = trim(strip_tags($values['content']));
+} else {
+    $values['class_key'] = 'modDocument';
+    $values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
+}
+
 
 $processorResponse = $modx->runProcessor('resource/create', $values);
 $response = $processorResponse->getResponse();

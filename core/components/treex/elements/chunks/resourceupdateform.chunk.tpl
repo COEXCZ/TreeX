@@ -41,6 +41,10 @@
                 </label>
             </td>
             <td>
+            
+                <label for="class_key" class="checkbox">Is Weblink
+                    <input id="class_key" type="checkbox" name="class_key" value="modWebLink" [[!+fi.class_key:FormItIsChecked=`modWebLink`]] />
+                </label>
 
             </td>
         </tr>
