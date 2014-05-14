@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.5
+==============
+- Editor - added Weblink feature
+
 TreeX 1.4.4
 ==============
 - Redactor Wysiwyg - added buttons horizontal rule, underline, undo, redo
