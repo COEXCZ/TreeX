@@ -800,7 +800,8 @@ limitations under the License.
       slide: true,
       nodeClass: Node,
       dataFilter: null,
-      keyboardSupport: true
+      keyboardSupport: true,
+      openFolderDelay: 1000
     };
 
     JqTreeWidget.prototype.toggle = function(node, slide) {
@@ -2258,7 +2259,8 @@ limitations under the License.
           return _this.updateDropHint();
         });
       };
-      return this.open_folder_timer = setTimeout(openFolder, 500);
+      this.stopOpenFolderTimer();
+      return this.open_folder_timer = setTimeout(openFolder, this.tree_widget.options.openFolderDelay);
     };
 
     DragAndDropHandler.prototype.stopOpenFolderTimer = function() {
