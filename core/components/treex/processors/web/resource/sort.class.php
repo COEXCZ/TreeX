@@ -69,10 +69,14 @@ class TreeXSortProcessor extends modProcessor {
         $prev = explode('_', $prev);
 
         if ($target[1] == 0) {
+            return;
+            /* disabled to ensure disability of document movement into root folder */
+            /*  
             $allow = $this->checkNewDocumentInRoot();
             if ($allow !== true) {
                 return $allow;
             }
+            */
         }
 
         $this->node = $this->modx->getObject('modResource', $node[1]);
