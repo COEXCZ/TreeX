@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.6
+==============
+- tree - disabled document moving into root folder
+
 TreeX 1.4.5
 ==============
 - Editor - added Weblink feature
