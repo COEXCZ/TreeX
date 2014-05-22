@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.7
+==============
+- delayed folder opening during drag action
+
 TreeX 1.4.6
 ==============
 - tree - disabled document moving into root folder
