@@ -24,6 +24,7 @@
       closedIcon: "",
       openedIcon: "",
       autoOpen: true,
+      openFolderDelay: 2000,
       onCreateLi: function(node, $li) {
         $li.find(".jqtree-title").addClass(node.cls);
         return $li.find(".jqtree-toggler").addClass("icon-caret-down");
