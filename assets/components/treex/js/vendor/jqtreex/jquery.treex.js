@@ -2106,6 +2106,7 @@ limitations under the License.
       this.$ghost = null;
       this.hit_areas = [];
       this.is_dragging = false;
+      this.current_item = null;
     }
 
     DragAndDropHandler.prototype.mouseCapture = function(position_info) {
@@ -2126,7 +2127,7 @@ limitations under the License.
 
     DragAndDropHandler.prototype.mouseStart = function(position_info) {
       var offset;
-      this.refreshHitAreas();
+      this.refresh();
       offset = $(position_info.target).offset();
       this.drag_element = new DragElement(this.current_item.node, position_info.page_x - offset.left, position_info.page_y - offset.top, this.tree_widget.element);
       this.is_dragging = true;
@@ -2139,15 +2140,13 @@ limitations under the License.
       this.drag_element.move(position_info.page_x, position_info.page_y);
       area = this.findHoveredArea(position_info.page_x, position_info.page_y);
       can_move_to = this.canMoveToArea(area);
-      if (area) {
+      if (can_move_to && area) {
         if (this.hovered_area !== area) {
           this.hovered_area = area;
           if (this.mustOpenFolderTimer(area)) {
             this.startOpenFolderTimer(area.node);
           }
-          if (can_move_to) {
-            this.updateDropHint();
-          }
+          this.updateDropHint();
         }
       } else {
         this.removeHover();
@@ -2177,14 +2176,21 @@ limitations under the License.
       this.removeHitAreas();
       if (this.current_item) {
         this.current_item.$element.removeClass('jqtree-moving');
+        this.current_item = null;
       }
       this.is_dragging = false;
       return false;
     };
 
-    DragAndDropHandler.prototype.refreshHitAreas = function() {
+    DragAndDropHandler.prototype.refresh = function() {
       this.removeHitAreas();
-      return this.generateHitAreas();
+      this.generateHitAreas();
+      if (this.current_item) {
+        this.current_item = this.tree_widget._getNodeElementForNode(this.current_item.node);
+        if (this.is_dragging) {
+          return this.current_item.$element.addClass('jqtree-moving');
+        }
+      }
     };
 
     DragAndDropHandler.prototype.removeHitAreas = function() {
@@ -2255,7 +2261,7 @@ limitations under the License.
         _this = this;
       openFolder = function() {
         return _this.tree_widget._openNode(folder, _this.tree_widget.options.slide, function() {
-          _this.refreshHitAreas();
+          _this.refresh();
           return _this.updateDropHint();
         });
       };
@@ -2402,11 +2408,13 @@ limitations under the License.
     };
 
     HitAreasGenerator.prototype.addPosition = function(node, position, top) {
-      this.positions.push({
+      var area;
+      area = {
         top: top,
         node: node,
         position: position
-      });
+      };
+      this.positions.push(area);
       return this.last_top = top;
     };
 
@@ -2448,17 +2456,17 @@ limitations under the License.
       }
     };
 
-    HitAreasGenerator.prototype.handleAfterOpenFolder = function(node, next_node, $element) {
-      if (node === this.current_node || next_node === this.current_node) {
-        return this.addPosition(node, Position.NONE, this.last_top);
-      } else {
-        return this.addPosition(node, Position.AFTER, this.last_top);
-      }
-    };
-
     HitAreasGenerator.prototype.handleFirstNode = function(node, $element) {
       if (node !== this.current_node) {
         return this.addPosition(node, Position.BEFORE, this.getTop($(node.element)));
+      }
+    };
+
+    HitAreasGenerator.prototype.handleAfterOpenFolder = function(node, next_node, $element) {
+      if (node === this.current_node.node || next_node === this.current_node.node) {
+        return this.addPosition(node, Position.NONE, this.last_top);
+      } else {
+        return this.addPosition(node, Position.AFTER, this.last_top);
       }
     };
 
@@ -2483,11 +2491,13 @@ limitations under the License.
     };
 
     HitAreasGenerator.prototype.generateHitAreasForGroup = function(hit_areas, positions_in_group, top, bottom) {
-      var area_height, area_top, position, _i, _len;
-      area_height = (bottom - top) / positions_in_group.length;
+      var area_height, area_top, i, position, position_count;
+      position_count = Math.min(positions_in_group.length, 4);
+      area_height = Math.round((bottom - top) / position_count);
       area_top = top;
-      for (_i = 0, _len = positions_in_group.length; _i < _len; _i++) {
-        position = positions_in_group[_i];
+      i = 0;
+      while (i < position_count) {
+        position = positions_in_group[i];
         hit_areas.push({
           top: area_top,
           bottom: area_top + area_height,
@@ -2495,6 +2505,7 @@ limitations under the License.
           position: position.position
         });
         area_top += area_height;
+        i += 1;
       }
       return null;
     };
