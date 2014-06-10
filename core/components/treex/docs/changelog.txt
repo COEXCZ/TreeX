@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.8
+==============
+- added tree resource type mgResource
+
 TreeX 1.4.7
 ==============
 - delayed folder opening during drag action
