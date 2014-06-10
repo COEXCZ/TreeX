@@ -199,7 +199,8 @@ class TreeXGetNodesProcessor extends modProcessor {
             
             array(
                 'class_key' => 'modDocument',
-                'OR:class_key:=' => 'modWebLink',    
+                'OR:class_key:=' => 'modWebLink',
+                'OR:class_key:=' => 'mgResource',    
             ),
             array(
                 'context_key' => $this->contextKey,
