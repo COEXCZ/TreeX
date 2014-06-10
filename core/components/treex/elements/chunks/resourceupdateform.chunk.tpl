@@ -42,7 +42,7 @@
             </td>
             <td>
             
-                <label for="class_key" class="checkbox">Is Weblink
+                <label for="class_key" class="checkbox">Is Redirect
                     <input id="class_key" type="checkbox" name="class_key" value="modWebLink" [[!+fi.class_key:FormItIsChecked=`modWebLink`]] />
                 </label>
 
@@ -99,6 +99,16 @@
                 </div>
             </td>
         </tr>
+		<tr>
+			<td>
+				<label for="tv12"> Contact Email: <span class="error">[[!+fi.error.tv12]]</span> </label>
+				<div class="input-prepend">
+                    <span class="add-on">Email</span>
+                    <input id="tv12" type="text" name="tv12" value="[[!+fi.tv12]]" />
+                </div>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
         </tbody>
     </table>
     <label for="tv43"> Custom CSS: <span class="error">[[!+fi.error.tv43]]</span> </label>
