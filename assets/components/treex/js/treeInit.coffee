@@ -28,7 +28,7 @@ $ ->
     closedIcon: ""
     openedIcon: ""
     autoOpen: true
-    openFolderDelay: 2000
+    openFolderDelay: 1500
 
     onCreateLi: (node, $li) ->
       $li.find(".jqtree-title").addClass node.cls
