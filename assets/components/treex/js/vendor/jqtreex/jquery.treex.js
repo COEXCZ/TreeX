@@ -2112,6 +2112,9 @@ limitations under the License.
     DragAndDropHandler.prototype.mouseCapture = function(position_info) {
       var $element, node_element;
       $element = $(position_info.target);
+      if (!this.mustCaptureElement($element)) {
+        return null;
+      }
       if (this.tree_widget.options.onIsMoveHandle && !this.tree_widget.options.onIsMoveHandle($element)) {
         return null;
       }
@@ -2141,6 +2144,9 @@ limitations under the License.
       area = this.findHoveredArea(position_info.page_x, position_info.page_y);
       can_move_to = this.canMoveToArea(area);
       if (can_move_to && area) {
+        if (!area.node.isFolder()) {
+          this.stopOpenFolderTimer();
+        }
         if (this.hovered_area !== area) {
           this.hovered_area = area;
           if (this.mustOpenFolderTimer(area)) {
@@ -2154,6 +2160,10 @@ limitations under the License.
         this.stopOpenFolderTimer();
       }
       return true;
+    };
+
+    DragAndDropHandler.prototype.mustCaptureElement = function($element) {
+      return !$element.is('input,select');
     };
 
     DragAndDropHandler.prototype.canMoveToArea = function(area) {
