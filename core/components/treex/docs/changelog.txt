@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.9
+==============
+- drag item - folder opens if you stay on it only
+
 TreeX 1.4.8
 ==============
 - added tree resource type mgResource
