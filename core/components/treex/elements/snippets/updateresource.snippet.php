@@ -32,9 +32,20 @@ $values['hidemenu'] = isset($values['hidemenu']) ? 1 : 0;
 $values['content'] = $_POST['content'];
 
 // if necessarry then set default resource type
-if (!isset($values['class_key']) {
+if (!isset($values['class_key'])) {
     $values['class_key'] = 'modDocument';
-} 
+}
+
+// if weblink checkbox is checked then set it
+if (isset ($values['class_key_weblink']) && intval($values['class_key_weblink']) == 1) {
+    // if weblink checked then set it
+    $values['class_key'] = 'modWebLink';
+} elseif ($values['class_key'] = 'modWebLink') {
+    // if weblink unchecked and previous state was weblink then set default modDocument
+    $values['class_key'] = 'modDocument';
+}
+
+unset($values['class_key_weblink']);
 
 // clean and prepare content data
 if ($values['class_key'] == 'modWebLink') {

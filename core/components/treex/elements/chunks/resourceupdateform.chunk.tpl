@@ -1,4 +1,4 @@
-[[!TreeXCheckPolicy:is=`1`:then=`
+
 
 [[!initRedactor]]
 
@@ -43,9 +43,9 @@
             <td>
             
                 <label for="class_key" class="checkbox">Is Redirect
-                    <input id="class_key" type="checkbox" name="class_key" value="modWebLink" [[!+fi.class_key:FormItIsChecked=`modWebLink`]] />
+                    <input id="class_key_weblink" type="checkbox" name="class_key_weblink" value="1" [[!+fi.class_key:FormItIsChecked=`modWebLink`]] />
                 </label>
-
+                <input id="class_key" type="hidden" name="class_key" value="[[!+fi.class_key]]" />
             </td>
         </tr>
         <tr>
@@ -119,4 +119,3 @@
     <div class="form-buttons"><input type="submit" value="save resource" class="btn btn-primary" /></div>
 </form>
 
-`:else=`<div>You have no permissions to edit this resource.</div>`]]
