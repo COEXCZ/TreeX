@@ -31,12 +31,15 @@ $values['published'] = isset($values['published']) ? 1 : 0;
 $values['hidemenu'] = isset($values['hidemenu']) ? 1 : 0;
 $values['content'] = $_POST['content'];
 
+// if necessarry then set default resource type
+if (!isset($values['class_key']) {
+    $values['class_key'] = 'modDocument';
+} 
 
 // clean and prepare content data
-if (isset($values['class_key']) && $values['class_key'] == 'modWebLink') {
+if ($values['class_key'] == 'modWebLink') {
     $values['content'] = trim(strip_tags($values['content']));
 } else {
-    $values['class_key'] = 'modDocument';
     $values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
 }
 
