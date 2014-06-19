@@ -27,7 +27,8 @@
       openFolderDelay: 1500,
       onCreateLi: function(node, $li) {
         $li.find(".jqtree-title").addClass(node.cls);
-        return $li.find(".jqtree-toggler").addClass("icon-caret-down");
+        $li.find(".jqtree-toggler").addClass("icon-caret-down");
+        return $li.find('.jqtree-title').append(' (' + node.pk + ')');
       }
     }, tree.bind("tree.contextmenu", function(event) {
       var contextmenu, contextmenuItem, deleteButton, node, nodeCls, nodeType, parentOffset, relX, relY;
