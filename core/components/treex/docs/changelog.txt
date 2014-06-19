@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.11
+==============
+- fixes
+
 TreeX 1.4.10
 ==============
 - modDocument, mgResource, weblink correct handling
