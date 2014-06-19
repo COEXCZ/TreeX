@@ -40,7 +40,7 @@ if (!isset($values['class_key'])) {
 if (isset ($values['class_key_weblink']) && intval($values['class_key_weblink']) == 1) {
     // if weblink checked then set it
     $values['class_key'] = 'modWebLink';
-} elseif ($values['class_key'] = 'modWebLink') {
+} elseif ($values['class_key'] == 'modWebLink') {
     // if weblink unchecked and previous state was weblink then set default modDocument
     $values['class_key'] = 'modDocument';
 }

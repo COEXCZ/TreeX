@@ -1,4 +1,4 @@
-
+[[!TreeXCheckPolicy:is=`1`:then=`
 
 [[!initRedactor]]
 
@@ -119,3 +119,4 @@
     <div class="form-buttons"><input type="submit" value="save resource" class="btn btn-primary" /></div>
 </form>
 
+`:else=`<div>You have no permissions to edit this resource.</div>`]]
