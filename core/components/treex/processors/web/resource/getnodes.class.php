@@ -196,12 +196,9 @@ class TreeXGetNodesProcessor extends modProcessor {
         ));
 
         $c->where(array(
+                        
+            array('class_key:IN' => array('modDocument','modWebLink','mgResource')), 
             
-            array(
-                'class_key' => 'modDocument',
-                'OR:class_key:=' => 'modWebLink',
-                'OR:class_key:=' => 'mgResource',    
-            ),
             array(
                 'context_key' => $this->contextKey,
                 'show_in_tree' => true,    
