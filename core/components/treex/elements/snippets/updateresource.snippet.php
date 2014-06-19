@@ -101,6 +101,8 @@ foreach ($_POST['delete'] as $value) {
 // Clear cache after update
 $values['syncsite'] = true;
 
+$values = array_merge($templateVarsList, $values);
+
 $processorResponse = $modx->runProcessor('resource/update', $values);
 $response = $processorResponse->getResponse();
 
