@@ -1,5 +1,10 @@
 Changelog for TreeX.
 
+TreeX 1.4.12
+==============
+- included [[~123]] type placeholder in editor
+- disabled "http" auto-adding (Redactor)
+
 TreeX 1.4.11
 ==============
 - fixes
