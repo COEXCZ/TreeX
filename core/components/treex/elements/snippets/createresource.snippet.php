@@ -35,7 +35,8 @@ if (isset($values['class_key']) && $values['class_key'] == 'modWebLink') {
     $values['content'] = trim(strip_tags($values['content']));
 } else {
     $values['class_key'] = 'modDocument';
-    $values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
+    $values['content'] = preg_replace('/\[\[!?[^!\$~][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
+
 }
 
 

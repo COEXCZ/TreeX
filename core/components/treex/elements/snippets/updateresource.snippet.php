@@ -51,7 +51,7 @@ unset($values['class_key_weblink']);
 if ($values['class_key'] == 'modWebLink') {
     $values['content'] = trim(strip_tags($values['content']));
 } else {
-    $values['content'] = preg_replace('/\[\[!?[^!\$][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
+    $values['content'] = preg_replace('/\[\[!?[^!\$~][^\]]+(\s*&[^=]+=`[^`]*`\s*)*\]\]/U', '', $values['content']);
 }
 
 // update template first
