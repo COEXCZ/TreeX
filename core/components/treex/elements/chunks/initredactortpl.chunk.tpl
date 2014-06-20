@@ -12,6 +12,7 @@
             fileGetJson: '[[+connectorUrl]]?action=[[+getFilesAction]]&resource=[[+resourceId]]',
             browseFiles: true,
             linkResource: false,
+            linkProtocol: false,
             uploadFields: [[+params]],
             searchImages: false,
             observeLinks: false,
