@@ -1,9 +1,65 @@
 <script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/tabs.js"></script>
 <script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/undo.js"></script>
+<script src="[[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]js/styles.js"></script>
 <script type="text/javascript">
+
+    var stylesJSON = [
+        {
+            "btnName":"largeText",
+            "className":"largeText",
+            "wrap":"span",
+            "spanClass":"largeText",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"smallText",
+            "className":"smallText",
+            "wrap":"span",
+            "spanClass":"smallText",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"muted",
+            "className":"muted",
+            "wrap":"span",
+            "spanClass":"muted",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"text-warning",
+            "className":"text-warning",
+            "wrap":"span",
+            "spanClass":"text-warning",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"text-error",
+            "className":"text-error",
+            "wrap":"span",
+            "spanClass":"text-error",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"text-info",
+            "className":"text-info",
+            "wrap":"span",
+            "spanClass":"text-info",
+            "forceBlock":"-1"
+        },
+        {
+            "btnName":"text-success",
+            "className":"text-success",
+            "wrap":"span",
+            "spanClass":"text-success",
+            "forceBlock":"-1"
+        }
+    ];
+
+
     $(document).ready(function(){
         var wysiwyg = $('textarea.rd').redactor({
-            plugins: ['undo', 'tabs'],
+            plugins: ['undo', 'tabs', 'styles'],
+            stylesJson: stylesJSON,
             paragraphy: false,
             convertDivs: false,
             imageUpload: '[[+connectorUrl]]?action=[[+imageUploadAction]]',
@@ -71,4 +127,17 @@
     .redactor_toolbar li a.redactor_btn_redo {
         background-image: url([[++treex.assets_url:isnot=``:then=`[[++treex.assets_url]]`:else=`[[++assets_url]]components/treex/`]]css/i/fe-redo.png);
     }
+
+    body .redactor_toolbar li a.redactor_btn_styles { background-position: -675px; }
+
+    [[-
+    .largeText {font-size: 24px;}
+    .smallText {font-size: 9px;}
+    .muted {color: grey;}
+    .text-warning {background: orange;}
+    .text-error {background: red;}
+    .text-info {background: blue;}
+    .text-success {background: green;}
+    ]]
+
 </style>
