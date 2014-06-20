@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.13
+==============
+- Redactor - styles selector
+
 TreeX 1.4.12
 ==============
 - included [[~123]] type placeholder in editor
