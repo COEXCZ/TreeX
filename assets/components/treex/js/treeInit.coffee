@@ -33,7 +33,7 @@ $ ->
     onCreateLi: (node, $li) ->
       $li.find(".jqtree-title").addClass node.cls
       $li.find(".jqtree-toggler").addClass "icon-caret-down"     
-      $li.find('.jqtree-title').append ' ('+ node.pk + ')'
+      $li.find('.jqtree-title').append ' <span class="rsrcID">('+ node.pk + ')</span>'
   
     # right click context menu
     tree.bind "tree.contextmenu", (event) ->
