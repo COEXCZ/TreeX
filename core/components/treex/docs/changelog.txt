@@ -1,5 +1,9 @@
 Changelog for TreeX.
 
+TreeX 1.4.15
+==============
+- FIX: show node "children" if there are weblinks/mgResources only
+
 TreeX 1.4.14
 ==============
 - added css class to node ID to be able to "CSSlize" it
