@@ -47,7 +47,7 @@ class TreeXFileUploadProcessor extends TreeXUploadProcessor {
         $ext = explode('.', $this->file['name']);
         $ext = strtolower($ext[count($ext) - 1]);
 
-        if ($ext != 'pdf') {
+        if (!in_array($ext, array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'xltx', 'ppt', 'pptx', 'txt', 'rtf'))) {
             return $this->modx->lexicon('treex.bad_file_format');
         }
 
