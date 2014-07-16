@@ -34,6 +34,7 @@ class TreeXGetNodesProcessor extends modProcessor {
             'qtipField' => $this->modx->getOption('resource_tree_node_tooltip',null,''),
             'currentResource' => false,
             'currentAction' => false,
+            'classKeyToShow' => array('modDocument','modWebLink','mgResource'),
         ));
         return true;
     }
@@ -188,7 +189,7 @@ class TreeXGetNodesProcessor extends modProcessor {
         $this->itemClass = 'modResource';
 
         $c = $this->modx->newQuery($this->itemClass);
-        $c->leftJoin('modResource', 'Child', array('Child.class_key' => 'modDocument', 'modResource.id = Child.parent'));
+        $c->leftJoin('modResource', 'Child', array('Child.class_key:IN' => $this->getProperty('classKeyToShow'), 'modResource.id = Child.parent'));
         
         $c->select($this->modx->getSelectColumns('modResource', 'modResource', '', $resourceColumns));
         $c->select(array(
@@ -197,7 +198,7 @@ class TreeXGetNodesProcessor extends modProcessor {
 
         $c->where(array(
                         
-            array('class_key:IN' => array('modDocument','modWebLink','mgResource')), 
+            array('class_key:IN' => $this->getProperty('classKeyToShow')), 
             
             array(
                 'context_key' => $this->contextKey,
